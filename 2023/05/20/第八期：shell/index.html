@@ -150,14 +150,14 @@
 <p><code>sh -n</code><br>检查脚本语法</p>
 <p><code>time sh test.sh</code><br>脚本执行时间</p>
 <h5 id="set"><a href="#set" class="headerlink" title="set"></a>set</h5><p>set -e      # 若指令传回值不为0，立即退出脚本</p>
-
+<h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a>linux常用命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">zip -qr yasuo.zip yasuo # -q变不显示压缩信息，-r 表递归压缩下面层级的目录或文件</span><br><span class="line"></span><br><span class="line">cat access.log| awk &#x27;&#123;print $4&#125;&#x27;|sort | uniq -c| sort -nr # 排序</span><br><span class="line"></span><br><span class="line"># 查找1天前以.gz结尾的日志，并批量删除</span><br><span class="line">find /var/log/nginx/ -name &quot;*.gz&quot; -type f -mtime +1|xargs rm -f</span><br><span class="line"></span><br><span class="line">## vim技巧</span><br><span class="line">:set ff # 查看文本格式</span><br><span class="line">:set binary # 改为unix格式</span><br></pre></td></tr></table></figure>
         
             <div id="toc-article">
                 
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E6%AF%94%E8%BE%83%E7%AC%A6eq"><span class="toc-text">数字比较符eq</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F"><span class="toc-text">特殊变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#if-x2F-else"><span class="toc-text">if&#x2F;else</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#case"><span class="toc-text">case</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">文件表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%AF%94%E8%BE%83"><span class="toc-text">字符串表达式比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#for"><span class="toc-text">for</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sh-x-%E6%98%BE%E7%A4%BA%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-text">sh -x 显示执行过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#set"><span class="toc-text">set</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E6%AF%94%E8%BE%83%E7%AC%A6eq"><span class="toc-text">数字比较符eq</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F"><span class="toc-text">特殊变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#if-x2F-else"><span class="toc-text">if&#x2F;else</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#case"><span class="toc-text">case</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">文件表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%AF%94%E8%BE%83"><span class="toc-text">字符串表达式比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#for"><span class="toc-text">for</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sh-x-%E6%98%BE%E7%A4%BA%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-text">sh -x 显示执行过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#set"><span class="toc-text">set</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">linux常用命令</span></a>
     </div>
   </div>
 
@@ -201,6 +201,15 @@
     </a>
   
   
+    <a href="/2023/05/20/%E7%AC%AC%E4%B9%9D%E6%9C%9F%EF%BC%9AK8s/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          第九期：K8s
+        
+      </div>
+    </a>
+  
 </nav>
 
       
@@ -229,6 +238,14 @@
       <ul>
         
           <li>
+            <a href="/2023/05/20/%E7%AC%AC%E5%8D%81%E6%9C%9F%EF%BC%9AVIM/">第十期：VIM</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/20/%E7%AC%AC%E4%B9%9D%E6%9C%9F%EF%BC%9AK8s/">第九期：K8s</a>
+          </li>
+        
+          <li>
             <a href="/2023/05/20/%E7%AC%AC%E5%85%AB%E6%9C%9F%EF%BC%9Ashell/">第八期：shell</a>
           </li>
         
@@ -238,14 +255,6 @@
         
           <li>
             <a href="/2023/05/20/%E7%AC%AC%E5%85%AD%E6%9C%9F%EF%BC%9ANginx/">第六期：Nginx</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/20/%E7%AC%AC%E4%BA%94%E6%9C%9F%EF%BC%9ACDN/">第五期：CDN</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/18/%E7%AC%AC%E5%9B%9B%E6%9C%9F%EF%BC%9AAI%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88%E6%B1%87%E6%80%BB/">第四期：AI工具集合汇总</a>
           </li>
         
       </ul>
@@ -263,7 +272,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">10</span></li></ul>
     </div>
   </div>
 
