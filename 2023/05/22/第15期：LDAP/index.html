@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>第15期：LDAP | Emog-LOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Emog-LOL" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Emog-LOL</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-第15期：LDAP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      第15期：LDAP
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T02:11:20.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2023/05/22/%E7%AC%AC15%E6%9C%9F%EF%BC%9ALDAP/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="LDAP简介"><a href="#LDAP简介" class="headerlink" title="LDAP简介"></a>LDAP简介</h4><p>LDAP(Lightweight Directory Access Protocol)轻量级目录访问协议，用于用户管理的统一认证服务。</p>
+<p>解决的痛点：比如说公司有多个系统有不同套用户密码，但接入开源的openldap之后，就可以共享同一套认证密码。</p>
+<h4 id="LDAP原理"><a href="#LDAP原理" class="headerlink" title="LDAP原理"></a>LDAP原理</h4><p>目录是一个搜索查询、树结构数据库，ldap是一套由目录加协议组成的认证系统。</p>
+<p>目录树组成成分：</p>
+<ul>
+<li><code>dn</code> – Distinguished Name 一条记录的具体位置，如dn:”uid&#x3D;er.xiong,ou&#x3D;OA,dc&#x3D;xiongchumo,dc&#x3D;com”表示熊出没公司OA组的熊二</li>
+<li><code>dc</code> – Domain component 域名部分，一条记录可包含多个dc</li>
+<li><code>ou</code> – Organization Unit 组织单元，一条记录所属组织 </li>
+<li><code>uid</code> – user id 用户id</li>
+<li><code>sn</code> – Surname 姓，如“许”</li>
+<li><code>cn</code> – Common Name，公共名称，一条记录的名称</li>
+<li><code>rdn</code> – 相对辨别名，类似于文件系统中的相对路径，它是与目录树结构无关的部分，如“uid&#x3D;tom”或“cn&#x3D; Thomas Johansson”</li>
+</ul>
+<h4 id="openldap安装使用"><a href="#openldap安装使用" class="headerlink" title="openldap安装使用"></a>openldap安装使用</h4><p>ldap只是一套协议，openldap是基于这套协议的实现。</p>
+<p>安装机器：centos7</p>
+<p>yum安装openldap</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install openldap compat-openldap openldap-clients openldap-servers openldap-devel</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>openldap 它是openldap客户端和服务端的公共库</li>
+<li>compat-openldap openldap兼容性库</li>
+<li>openldap-clients 启动服务和设置</li>
+<li>openldap-servers 启动服务和设置</li>
+<li>openldap-devel 工具包，可选择安装</li>
+<li>openldap-servers-sql 支持sql模块，可选择安装</li>
+<li>migrationtools 通过migrationtools实现OpenLDAP用户及用户组的添加，导入系统账户，可进行选择性安装</li>
+</ul>
+<p>相关目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/openldap/slapd.d/ # 存放配置文件</span><br></pre></td></tr></table></figure>
+
+<p>服务管理命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service slapd start # 启动openldap服务</span><br><span class="line">slapd -VV # 查看版本</span><br></pre></td></tr></table></figure>
+<h4 id="示例说明：添加管理员密码"><a href="#示例说明：添加管理员密码" class="headerlink" title="示例说明：添加管理员密码"></a>示例说明：添加管理员密码</h4><p>生成管理员密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slappasswd -s 123456 # &#123;SSHA&#125;XoEOHoalUAXb7dNiirKs7yFl/1/N/QYF</span><br></pre></td></tr></table></figure>
+
+<p>创建目录并添加修改管理员密码的ldif文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/ldap-workspace</span><br><span class="line">touch changepwd.ldif</span><br><span class="line"></span><br><span class="line"># 文件内容如下：</span><br><span class="line">dn: olcDatabase=&#123;0&#125;config,cn=config</span><br><span class="line">changetype: modify</span><br><span class="line">add: olcRootPW</span><br><span class="line">olcRootPW: &#123;SSHA&#125;XoEOHoalUAXb7dNiirKs7yFl/1/N/QYF</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>第一行表将要变更配置的文件：&#x2F;etc&#x2F;openldap&#x2F;slapd.d&#x2F;cn&#x3D;config&#x2F;olcDatabase&#x3D;{0}config.ldif</li>
+<li>第二行表修改类型</li>
+<li>第三行表要添加的配置项是olcRootPW</li>
+<li>第四行是加配置项值</li>
+</ul>
+<p>执行changepwd文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapadd -Y EXTERNAL -H ldapi:/// -f changepwd.ldif</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/openldap/slapd.d/cn\=config/olcDatabase\=\&#123;0\&#125;config.ldif，新增了一个olcRootPW项</span><br></pre></td></tr></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/swordfall/p/12119010.html">https://www.cnblogs.com/swordfall/p/12119010.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wilburxu/p/9174353.html">https://www.cnblogs.com/wilburxu/p/9174353.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7e4d99f6baaf">https://www.jianshu.com/p/7e4d99f6baaf</a></p>
+<h4 id="部署生产环境可用的openldap"><a href="#部署生产环境可用的openldap" class="headerlink" title="部署生产环境可用的openldap"></a>部署生产环境可用的openldap</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 安装启动</span><br><span class="line">yum install -y openldap-clients openldap-servers</span><br><span class="line"></span><br><span class="line">cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG</span><br><span class="line"></span><br><span class="line">chown ldap:ldap /var/lib/ldap/DB_CONFIG</span><br><span class="line"></span><br><span class="line">systemctl start slapd</span><br><span class="line"></span><br><span class="line">systemctl enable slapd</span><br><span class="line"></span><br><span class="line"># 导入预设模式</span><br><span class="line">find /etc/openldap/schema/ -name &quot;*.ldif&quot; -exec ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f &#123;&#125; \; </span><br><span class="line"></span><br><span class="line"># 设置管理用户root密码：</span><br></pre></td></tr></table></figure>
+<p>slappasswd -s 123456 # 生成加密密码</p>
+<p>chrootpwd.ldif # -H 指定ldap服务器地址；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 设置域名cn=admin,dc=emog,dc=com对olcDatabase=&#123;1&#125;monitor等文件有存取权限</span><br><span class="line"></span><br><span class="line">mkdir -p /etc/openldap/init_ldif # init_ldif当作工作区目录</span><br><span class="line">cd /etc/openldap/init_ldif</span><br><span class="line"></span><br><span class="line">ldapmodify -Y EXTERNAL -H ldapi:/// -f chdomain.ldif # chdomain.ldif文件在后面的说明处。</span><br><span class="line"></span><br><span class="line"># 创建emog根域名，并在其下设置admin用户管理整个根组织，再创建两个组织：Group和People。</span><br><span class="line"></span><br><span class="line">ldapadd -x -D cn=admin,dc=emog,dc=com -W -f addOrg.ldif</span><br><span class="line"></span><br><span class="line"># UI连接管理 LdapAdmin: http://www.ldapadmin.org/download/ldapadmin.html</span><br><span class="line">Host: 192.168.1.146  Port: 389  Version: 3</span><br><span class="line">Base: dc=emog,dc=com</span><br><span class="line">Username: cn=admin,dc=emog,dc=com</span><br><span class="line">Password: 123456</span><br><span class="line"></span><br><span class="line"># 新建用户</span><br><span class="line">右击 ou=People 目录新建用户</span><br><span class="line">仅配置sn: chenxiaoming,</span><br><span class="line">cn: chenxiaoming,</span><br><span class="line">homeDirectory为 /</span><br><span class="line"></span><br><span class="line"># 新建Group</span><br><span class="line">右击 ou=Group 目录新建Organizational Unit类型，名为Jenkins，再在Jenkins下新建group类型，名为jenkins-users，这时候有一个属性`member`可配置为`	cn=lisi,ou=People,dc=emog,dc=com`，代表lisi这个人归属于Jenkins-users这个group下面。</span><br><span class="line"></span><br><span class="line"># 至此，配置完成了。</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><p>chrootpwd.ldif文件内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dn: olcDatabase=&#123;2&#125;hdb,cn=config</span><br><span class="line">changetype: modify</span><br><span class="line">replace: olcRootPW</span><br><span class="line">olcRootPW: &#123;SSHA&#125;mMZx/2fkVQDpjnQELwYlILXVW/ybXnMy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>chdomain.ldif文件内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">dn: olcDatabase=&#123;1&#125;monitor,cn=config</span><br><span class="line">changetype: modify</span><br><span class="line">replace: olcAccess</span><br><span class="line">olcAccess: &#123;0&#125;to * by dn.base=&quot;gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth&quot;  read by dn.base=&quot;cn=admin,dc=emog,dc=com&quot; read by * none</span><br><span class="line"></span><br><span class="line">dn: olcDatabase=&#123;2&#125;hdb,cn=config</span><br><span class="line">changetype: modify</span><br><span class="line">replace: olcSuffix</span><br><span class="line">olcSuffix: dc=emog,dc=com</span><br><span class="line"></span><br><span class="line">dn: olcDatabase=&#123;2&#125;hdb,cn=config</span><br><span class="line">changetype: modify</span><br><span class="line">replace: olcRootDN</span><br><span class="line">olcRootDN: cn=admin,dc=emog,dc=com</span><br><span class="line"></span><br><span class="line">dn: olcDatabase=&#123;2&#125;hdb,cn=config</span><br><span class="line">changetype: modify</span><br><span class="line">add: olcAccess</span><br><span class="line">olcAccess: &#123;0&#125;to attrs=userPassword,shadowLastChange by dn=&quot;cn=admin,dc=emog,dc=com&quot; write by anonymous auth by self write by * none</span><br><span class="line">olcAccess: &#123;1&#125;to dn.base=&quot;&quot; by * read</span><br><span class="line">olcAccess: &#123;2&#125;to * by dn=&quot;cn=admin,dc=emog,dc=com&quot; write by * read</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>add-org.ldif文件内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">dn: dc=emog,dc=com</span><br><span class="line">dc: emog</span><br><span class="line">objectClass: top</span><br><span class="line">objectClass: domain</span><br><span class="line">o: emog</span><br><span class="line"></span><br><span class="line">dn: cn=admin,dc=emog,dc=com</span><br><span class="line">objectClass: organizationalRole</span><br><span class="line">cn: admin</span><br><span class="line">description: LDAP admin</span><br><span class="line"></span><br><span class="line">dn: ou=Group,dc=emog,dc=com</span><br><span class="line">ou: Group</span><br><span class="line">objectClass: organizationalUnit</span><br><span class="line"></span><br><span class="line">dn: ou=People,dc=emog,dc=com</span><br><span class="line">ou: People</span><br><span class="line">objectClass: organizationalUnit</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="gitea接入openldap"><a href="#gitea接入openldap" class="headerlink" title="gitea接入openldap"></a>gitea接入openldap</h4><p>前提：<br>gitea和openldap部署好了。</p>
+<p><a href="../Git/gitea.md">gitea安装</a></p>
+<p>接入步骤</p>
+<ol>
+<li>浏览器登入gitea，点击右侧的个人头像-管理后台-认证源-添加认证源</li>
+<li>认证类型(LDAP (via BindDN))-认证名称(allsd11-openldap)-安全协议(Unencrypted)-主机(192.168.31.87)-端口(389)-用户搜索基准(ou&#x3D;People,dc&#x3D;emog,dc&#x3D;com)-用户过滤规则((&amp;(objectclass&#x3D;top)(cn&#x3D;%s)))-勾选 从Bind DN中拉去属性信息，该认证源已经启用。</li>
+</ol>
+<p>说明：</p>
+<ul>
+<li>因为没有用TLS证书，所以选Unencrypted</li>
+<li>其他选项默认不动即可</li>
+</ul>
+<h4 id="jenkins接入openldap"><a href="#jenkins接入openldap" class="headerlink" title="jenkins接入openldap"></a>jenkins接入openldap</h4><ol>
+<li>登录jenkins-系统管理-全局安全配置-安全域(LDAP)</li>
+<li>开始配置LDAP：Server(192.168.31.87:389)-roo DN(dc&#x3D;emog,dc&#x3D;com)-勾选Allow blank rootDN-User search base(ou&#x3D;People)-User search filter(cn&#x3D;{0})-Group search base(ou&#x3D;Jenkins,ou&#x3D;Group)-点选Search for LDAP groups containing user-Manager DN(cn&#x3D;admin,dc&#x3D;emog,dc&#x3D;com)-Manager Password<br>(123456)-保存</li>
+</ol>
+<p>说明：</p>
+<ul>
+<li><code>root DN</code>的设置是会后面的<code>User search base</code>和<code>Group search base</code>服务的，如<code>User search base</code>设置成ou&#x3D;People，认证的时候就会到<code>ou=People,dc=emog,dc=com</code>下面查找用户。</li>
+<li>其他选项没有提及的就保持不动。</li>
+</ul>
+<ol start="3">
+<li><p>配置完成后，点击<code>保存</code>退出。点击<code>全局安全配置</code>进入，可以点击<code>Testing LDAP settings</code>测试。接着往下，看到<code>授权策略</code>，点击<code>Add user</code>添加用户，User name是你早早就设置在<code>ou=People</code>下面的用户才行，如<code>zhangsan</code> ，最后勾选那些”Read”等权限。最好规划一个administer用户，因为系统认证方式的admin已经不能用了。</p>
+</li>
+<li><p>登录：使用<code>zhangsan</code>用户就可以登录jenkins了。</p>
+</li>
+</ol>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/GX_1_11_real/article/details/109511636">https://blog.csdn.net/GX_1_11_real/article/details/109511636</a></p>
+<h4 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h4><ul>
+<li>1.jenkins认证方式修改成ldap认证后，原来系统认证用户admin使用不了了，怎么办？<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">编辑/var/lib/jenkins/config.xml文件</span><br><span class="line"></span><br><span class="line">把：</span><br><span class="line">&lt;securityRealm class=...&gt;</span><br><span class="line">  ....    </span><br><span class="line">&lt;/securityRealm&gt;</span><br><span class="line"></span><br><span class="line">替换成系统用户认证：</span><br><span class="line"></span><br><span class="line">&lt;securityRealm class=&quot;hudson.security.HudsonPrivateSecurityRealm&quot;&gt;</span><br><span class="line">  &lt;disableSignup&gt;false&lt;/disableSignup&gt;</span><br><span class="line">  &lt;enableCaptcha&gt;false&lt;/enableCaptcha&gt;</span><br><span class="line">&lt;/securityRealm&gt;</span><br><span class="line"></span><br><span class="line">最后，重启：systemctl restart jenkins</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="其他参考文章"><a href="#其他参考文章" class="headerlink" title="其他参考文章"></a>其他参考文章</h5><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32732045">https://zhuanlan.zhihu.com/p/32732045</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/GX_1_11_real/article/details/108577999">https://blog.csdn.net/GX_1_11_real/article/details/108577999</a></p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#LDAP%E7%AE%80%E4%BB%8B"><span class="toc-text">LDAP简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LDAP%E5%8E%9F%E7%90%86"><span class="toc-text">LDAP原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#openldap%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8"><span class="toc-text">openldap安装使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E8%AF%B4%E6%98%8E%EF%BC%9A%E6%B7%BB%E5%8A%A0%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81"><span class="toc-text">示例说明：添加管理员密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%8F%AF%E7%94%A8%E7%9A%84openldap"><span class="toc-text">部署生产环境可用的openldap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gitea%E6%8E%A5%E5%85%A5openldap"><span class="toc-text">gitea接入openldap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jenkins%E6%8E%A5%E5%85%A5openldap"><span class="toc-text">jenkins接入openldap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98"><span class="toc-text">遇到问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">其他参考文章</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/2023/05/22/第15期：LDAP/">https://chenqiaorui.github.io/2023/05/22/第15期：LDAP/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2023/05/22/%E7%AC%AC14%E6%9C%9F%EF%BC%9Alinux-jq/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          第14期：linux-jq
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/22/%E7%AC%AC16%E6%9C%9F%EF%BC%9Agrep/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          第16期：grep
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC36%E6%9C%9F%EF%BC%9ARedis/">第36期：Redis</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC35%E6%9C%9F%EF%BC%9ATELNET/">第35期：TELNET</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC34%E6%9C%9F%EF%BC%9ALVM/">第34期：LVM</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC33%E6%9C%9F%EF%BC%9A%E5%B7%A5%E5%85%B7%E9%9B%86/">第33期：工具集</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC32%E6%9C%9F%EF%BC%9AJava/">第32期：Java</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">36</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2023 Ricky Chen.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>第11期：Tcpdump | Emog-LOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Emog-LOL" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Emog-LOL</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-第11期：Tcpdump" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      第11期：Tcpdump
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-20T16:40:50.000Z" itemprop="datePublished">2023年05月21日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2023/05/21/%E7%AC%AC11%E6%9C%9F%EF%BC%9ATcpdump/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># tcpdump 抓指定post请求并存放到文件</span><br><span class="line">nohup tcpdump -s 0 -A -vv &#x27;tcp[((tcp[12:1] &amp; 0xf0) &gt;&gt; 2):4] = 0x504f5354&#x27; | grep -C 100 &quot;/api/screenshot&quot; &gt;&gt; file.log &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">三次握手：</span><br><span class="line">1.张三发送一个数据包，设置SYN=1，表明想要建立连接，设置seq=x来注释第一个字节包编号；</span><br><span class="line">2.李四收到了，发送一个数据包，设置ACK=1，表明他收到了数据包，设置ack=x+1，期待收到下一个数据包；同时，他想要建立通信连接，设置seq=y；</span><br><span class="line">3.张三设置ack=y+1给李四，表明自己收到了李四的包。</span><br></pre></td></tr></table></figure>
+<h4 id="wireshark过滤规则"><a href="#wireshark过滤规则" class="headerlink" title="wireshark过滤规则"></a>wireshark过滤规则</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ip.src == 192.168.1.189 # 根据源ip匹配</span><br><span class="line">ip.dst == 192.168.1.189 # 根据目的ip匹配</span><br><span class="line">ip.addr == 192.168.1.189 # 根据源或目的ip匹配</span><br><span class="line"></span><br><span class="line">http # 根据协议匹配</span><br><span class="line"></span><br><span class="line">tcp.port == 80 # 根据端口匹配</span><br><span class="line"></span><br><span class="line">http.response.code==200 # 根据状态码匹配</span><br><span class="line"></span><br><span class="line">http.request==1 # 匹配所有请求包</span><br><span class="line"></span><br><span class="line">http.response==1 # 匹配所有相应包</span><br><span class="line">http.request.method==GET # 匹配GET请求</span><br></pre></td></tr></table></figure>
+<h4 id="tcpdump抓包分析https"><a href="#tcpdump抓包分析https" class="headerlink" title="tcpdump抓包分析https"></a>tcpdump抓包分析https</h4><p>案例设计：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在centos7机器上，执行`tcpdump -i any -vvv tcp -w /tmp/json.pcap`监听tcp请求;</span><br><span class="line"></span><br><span class="line">centos7新起一个窗口，执行`curl https://json.im/`</span><br><span class="line"></span><br><span class="line">切换回tcpdump的窗口，`ctrl + c` 停止监听。</span><br><span class="line"></span><br><span class="line">执行`tcpdump -r /tmp/json.pcap`查看pcap包 或者使用`wireshark`查看。</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><p><code>tcpdump -i any -vvv tcp -w /tmp/json.pcap</code> 中 <code>-i any</code>监听所有网口；<code>-vvv</code>获取更多详细信息；<code>tcp</code>抓取tcp请求。</p>
+</li>
+<li><p>由于抓取的是https协议，报文数据全是被加密的。</p>
+</li>
+</ul>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP"><span class="toc-text">TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#wireshark%E8%BF%87%E6%BB%A4%E8%A7%84%E5%88%99"><span class="toc-text">wireshark过滤规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tcpdump%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90https"><span class="toc-text">tcpdump抓包分析https</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/2023/05/21/第11期：Tcpdump/">https://chenqiaorui.github.io/2023/05/21/第11期：Tcpdump/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2023/05/20/%E7%AC%AC%E5%8D%81%E6%9C%9F%EF%BC%9AVIM/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          第十期：VIM
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/21/%E7%AC%AC12%E6%9C%9F%EF%BC%9Acurl/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          第12期：curl
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC36%E6%9C%9F%EF%BC%9ARedis/">第36期：Redis</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC35%E6%9C%9F%EF%BC%9ATELNET/">第35期：TELNET</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC34%E6%9C%9F%EF%BC%9ALVM/">第34期：LVM</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC33%E6%9C%9F%EF%BC%9A%E5%B7%A5%E5%85%B7%E9%9B%86/">第33期：工具集</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC32%E6%9C%9F%EF%BC%9AJava/">第32期：Java</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">36</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2023 Ricky Chen.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

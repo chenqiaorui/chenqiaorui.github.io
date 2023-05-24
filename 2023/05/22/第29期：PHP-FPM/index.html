@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>第29期：PHP-FPM | Emog-LOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Emog-LOL" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Emog-LOL</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-第29期：PHP-FPM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      第29期：PHP-FPM
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T09:02:04.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2023/05/22/%E7%AC%AC29%E6%9C%9F%EF%BC%9APHP-FPM/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h4><p>systemctl status php7.4-fpm # &#x2F;etc&#x2F;init.d下可查看服务名称</p>
+<h5 id="重启fpm"><a href="#重启fpm" class="headerlink" title="重启fpm"></a>重启fpm</h5><p>ps aux|grep php-fpm|grep pool|awk ‘{print $2}’|xargs -I {} kill {}   # 重启子进程<br>kill -USR2 master进程id    # 表示重启php-fpm，其中USR2表示重载所有worker并解决载入配置和二进制模块</p>
+<h5 id="php-ini配置文件"><a href="#php-ini配置文件" class="headerlink" title="php.ini配置文件"></a>php.ini配置文件</h5><p>php –ini 查看php配置目录及php.ini文件位置<br>memory_limit 只是限制了每个 PHP 进程的内存占用上限，而不是为每个进程分配了固定的内存</p>
+<h5 id="查看PHP-FPM在机器上的平均内存占用"><a href="#查看PHP-FPM在机器上的平均内存占用" class="headerlink" title="查看PHP-FPM在机器上的平均内存占用"></a>查看PHP-FPM在机器上的平均内存占用</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps --no-headers -o &quot;rss,cmd&quot; -C php-fpm | awk &#x27;&#123; sum+=$1 &#125; END &#123; printf (&quot;%d%s\n&quot;, sum/NR/1024,&quot;M&quot;) &#125;&#x27;</span><br></pre></td></tr></table></figure>
+<p>Note：NR表行数</p>
+<h5 id="php-fpm配置文件"><a href="#php-fpm配置文件" class="headerlink" title="php-fpm配置文件"></a>php-fpm配置文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1.配置文件路径：/opt/php-7.3.11/etc/php-fpm.d/www.default.conf</span><br><span class="line">2.配置文件内容详解：</span><br><span class="line">[www]</span><br><span class="line">user = nobody               #进程的发起用户和用户组，用户user是必须设置，group不是  nobody 任意用户</span><br><span class="line">group = nobody</span><br><span class="line"></span><br><span class="line">listen = [::]:9000          #监听ip和端口，[::] 代表任意ip</span><br><span class="line">chdir = /app                #在程序启动时将会改变到指定的位置(这个是相对路径，相对当前路径或chroot后的“/”目录)　</span><br><span class="line"></span><br><span class="line">pm = dynamic                #选择进程池管理器如何控制子进程的数量  </span><br><span class="line">#static： 对于子进程的开启数路给定一个锁定的值(pm.max_children) </span><br><span class="line">#dynamic: 子进程的数目为动态的，它的数目基于下面的指令的值(以下为dynamic适用参数)</span><br><span class="line">pm.max_children = 16        #同一时刻能够存货的最大子进程的数量</span><br><span class="line">pm.start_servers = 4        #在启动时启动的子进程数量</span><br><span class="line">pm.min_spare_servers = 2    #处于空闲&quot;idle&quot;状态的最小子进程，如果空闲进程数量小于这个值，那么相应的子进程会被创建</span><br><span class="line">pm.max_spare_servers = 16   #最大空闲子进程数量，空闲子进程数量超过这个值，那么相应的子进程会被杀掉。</span><br><span class="line">catch_workers_output = Yes  #将worker的标准输出和错误输出重定向到主要的错误日志记录中，如果没有设置，根据FastCGI的指定，将会被重定向到/dev/null上</span><br></pre></td></tr></table></figure>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/install.fpm.configuration.php">https://www.php.net/manual/zh/install.fpm.configuration.php</a></p>
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><h4 id="PHP安装"><a href="#PHP安装" class="headerlink" title="PHP安装"></a>PHP安装</h4><p>cenots7安装php7.4</p>
+<p>下载php包</p>
+<p><a target="_blank" rel="noopener" href="https://www.php.net/downloads.php">php官网</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.php.net/distributions/php-7.4.29.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf php-7.4.29.tar.gz</span><br></pre></td></tr></table></figure>
+<p>切换到目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd php-7.4.29</span><br></pre></td></tr></table></figure>
+
+<p>提前安装依赖工具：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install libxml2-devel openssl-devel sqlite-devel libcurl-devel libicu-devel gcc-c++ oniguruma oniguruma-devel libxslt-devel libpng-devel libjpeg-devel freetype-devel</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>若出现<code>package not found</code>错误，那就可能需要更换yum源。</li>
+</ul>
+<p>配置安装模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">./configure  \</span><br><span class="line">--prefix=/opt/php/php  \</span><br><span class="line">--with-config-file-path=/opt/php/php/etc  \</span><br><span class="line">--enable-fpm  \</span><br><span class="line">--enable-gd  \</span><br><span class="line">--with-external-gd  \</span><br><span class="line">--with-fpm-user=nginx  \</span><br><span class="line">--with-fpm-group=nginx  \</span><br><span class="line">--enable-inline-optimization  \</span><br><span class="line">--disable-debug  \</span><br><span class="line">--disable-rpath  \</span><br><span class="line">--enable-shared  \</span><br><span class="line">--enable-soap  \</span><br><span class="line">--with-libxml \</span><br><span class="line">--with-xmlrpc  \</span><br><span class="line">--with-openssl  \</span><br><span class="line">--with-external-pcre \</span><br><span class="line">--with-sqlite3  \</span><br><span class="line">--with-zlib  \</span><br><span class="line">--enable-bcmath  \</span><br><span class="line">--with-iconv  \</span><br><span class="line">--with-bz2  \</span><br><span class="line">--enable-calendar  \</span><br><span class="line">--with-curl  \</span><br><span class="line">--with-cdb  \</span><br><span class="line">--enable-dom  \</span><br><span class="line">--enable-exif  \</span><br><span class="line">--enable-fileinfo  \</span><br><span class="line">--enable-filter  \</span><br><span class="line">--enable-ftp \</span><br><span class="line">--with-openssl-dir \</span><br><span class="line">--with-jpeg \</span><br><span class="line">--with-zlib-dir \</span><br><span class="line">--with-freetype \</span><br><span class="line">--enable-gd-jis-conv \</span><br><span class="line">--with-gettext \</span><br><span class="line">--with-gmp \</span><br><span class="line">--with-mhash \</span><br><span class="line">--enable-json \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--enable-mbregex \</span><br><span class="line">--enable-pdo \</span><br><span class="line">--with-mysqli=mysqlnd \</span><br><span class="line">--with-pdo-mysql=mysqlnd \</span><br><span class="line">--with-pdo-sqlite \</span><br><span class="line">--with-readline \</span><br><span class="line">--enable-session \</span><br><span class="line">--enable-shmop \</span><br><span class="line">--enable-simplexml \</span><br><span class="line">--enable-sockets \</span><br><span class="line">--enable-sysvmsg \</span><br><span class="line">--enable-sysvsem \</span><br><span class="line">--enable-sysvshm \</span><br><span class="line">--with-xsl \</span><br><span class="line">--with-zip \</span><br><span class="line">--enable-mysqlnd-compression-support \</span><br><span class="line">--with-pear \</span><br><span class="line">--enable-opcache</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><p><code>--prefix=/opt/php/php</code> 指定php的安装位置</p>
+</li>
+<li><p><code>--enable-fpm</code> 加上这个选项，编译安装后的目录才会有fpm</p>
+</li>
+<li><p>若遇到<code> (libpcre2-8 &gt;= 10.30) were not met</code>问题，是因为模块<code>--with-external-pcre --with-pcre-jit</code>用到了<code>pcre2</code></p>
+<p>若包不可下载，可前往<code>http://www.pcre.org/</code>下载</p>
+</li>
+</ul>
+<p>安装配置pcre2:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">https://sourceforge.net/projects/pcre/files/pcre2/10.34/pcre2-10.34.tar.bz2/download</span><br><span class="line"></span><br><span class="line">tar xjvf pcre2-10.34.tar.bz2</span><br><span class="line"></span><br><span class="line">cd pcre2-10.34</span><br><span class="line"></span><br><span class="line">./configure</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>若遇到<code>(libcurl &gt;= 7.15.5) were not met</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install libcurl-devel</span><br></pre></td></tr></table></figure>
+<p>说明：若遇到<code>libcurl-devel</code> not found，可能需要添加yun源:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d</span><br><span class="line">yum clean all # 清除缓存</span><br><span class="line">wget http://mirrors.163.com/.help/CentOS7-Base-163.repo</span><br><span class="line"></span><br><span class="line">sed -i &#x27;s/$releasever/7/g&#x27; ./CentOS7-Base-163.repo # 替换成7</span><br><span class="line">yum makecache # 建立索引目录</span><br><span class="line">yum install libcurl-devel</span><br></pre></td></tr></table></figure></li>
+<li><p>若遇到<code>No package &#39;gdlib&#39; found</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.gz</span><br><span class="line">tar zxvf libgd-2.2.5.tar.gz</span><br><span class="line">cd libgd-2.2.5</span><br><span class="line">./configure </span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若遇到<code>GNU MP Library version 4.2 or greater required</code>，则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gmp-devel</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若遇到<code>No package &#39;libzip&#39; found</code>，则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://libzip.org/download/libzip-1.2.0.tar.gz</span><br><span class="line">tar -zxvf libzip-1.2.0.tar.gz</span><br><span class="line">cd libzip-1.2.0</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>配置完成会看到以下界面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Thank you for using PHP.</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>编译和安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>安装完成目录结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ cd /opt/php/php</span><br><span class="line">$ tree . -L 1</span><br><span class="line"></span><br><span class="line">├── bin</span><br><span class="line">├── etc</span><br><span class="line">├── include</span><br><span class="line">├── lib</span><br><span class="line">├── php</span><br><span class="line">├── sbin</span><br><span class="line">└── var</span><br></pre></td></tr></table></figure>
+<p>编辑<code>/etc/profile</code>，文件末尾添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PATH=$PATH:/opt/php/php/bin</span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
+
+<p><code>source /etc/profile</code>后即可使用<code>php -v</code>等命令</p>
+<p>安装之后的目录没有<code>php.ini</code>，从之前用来安装php的源码包的根目录拷贝<code>php.ini-production</code>到<code>/opt/php/php/etc</code>目录，改名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv php.ini-production php.ini</span><br></pre></td></tr></table></figure>
+
+<p>php命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">php --ini # 查看ini位置</span><br><span class="line">php -v # 查看版本</span><br><span class="line"></span><br><span class="line">$ php -a # 交互式运行php</span><br><span class="line">php &gt; $a = 5;</span><br><span class="line">php &gt; echo $a;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>给php-fpm建个软链</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /opt/php/php/sbin/php-fpm /usr/sbin/php-fpm</span><br></pre></td></tr></table></figure>
+
+<p>配置php-fpm.conf文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/php/php/etc</span><br><span class="line">mv php-fpm.conf.default php-fpm.conf</span><br></pre></td></tr></table></figure>
+<p>配置<a target="_blank" rel="noopener" href="http://www.conf文件/">www.conf文件</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/php/php/etc/php-fpm.d</span><br><span class="line">mv www.conf.default www.conf</span><br></pre></td></tr></table></figure>
+<p>启动php-fpm服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php-fpm</span><br></pre></td></tr></table></figure>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E5%90%AFfpm"><span class="toc-text">重启fpm</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#php-ini%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">php.ini配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8BPHP-FPM%E5%9C%A8%E6%9C%BA%E5%99%A8%E4%B8%8A%E7%9A%84%E5%B9%B3%E5%9D%87%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8"><span class="toc-text">查看PHP-FPM在机器上的平均内存占用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#php-fpm%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">php-fpm配置文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP"><span class="toc-text">PHP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP%E5%AE%89%E8%A3%85"><span class="toc-text">PHP安装</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/2023/05/22/第29期：PHP-FPM/">https://chenqiaorui.github.io/2023/05/22/第29期：PHP-FPM/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2023/05/22/%E7%AC%AC28%E6%9C%9F%EF%BC%9A%E7%BD%91%E7%BB%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          第28期：网络
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/22/%E7%AC%AC30%E6%9C%9F%EF%BC%9APython/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          第30期：Python
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC36%E6%9C%9F%EF%BC%9ARedis/">第36期：Redis</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC35%E6%9C%9F%EF%BC%9ATELNET/">第35期：TELNET</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC34%E6%9C%9F%EF%BC%9ALVM/">第34期：LVM</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC33%E6%9C%9F%EF%BC%9A%E5%B7%A5%E5%85%B7%E9%9B%86/">第33期：工具集</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC32%E6%9C%9F%EF%BC%9AJava/">第32期：Java</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">36</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2023 Ricky Chen.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

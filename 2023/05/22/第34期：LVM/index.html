@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>第34期：LVM | Emog-LOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Emog-LOL" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Emog-LOL</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-第34期：LVM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      第34期：LVM
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T09:33:42.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2023/05/22/%E7%AC%AC34%E6%9C%9F%EF%BC%9ALVM/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>lvm能做什么？组装多个物理磁盘，划分逻辑磁盘，逻辑磁盘可以动态扩缩。</p>
+<h4 id="lvm原理"><a href="#lvm原理" class="headerlink" title="lvm原理"></a>lvm原理</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">lvm(Logic Volume Manage)逻辑卷管理。</span><br><span class="line"></span><br><span class="line"># 先分区</span><br><span class="line"></span><br><span class="line">`fdisk -l`查看新加的磁盘`/dev/sda`，给它分区：`fdisk /dev/sda`</span><br><span class="line"></span><br><span class="line">输入`n`，选择p，起始扇区回车选择默认，终止扇区输入`+10G`容量。</span><br><span class="line"></span><br><span class="line">输入`t`，设置id为`8e`，`8e`代表分区类型为linux-lvm。</span><br><span class="line"></span><br><span class="line">输入`w`保存配置。</span><br><span class="line"></span><br><span class="line"># 安装lvm2</span><br><span class="line">yum -y install lvm2</span><br><span class="line"></span><br><span class="line"># 创建pv(Physical Volume)物理卷</span><br><span class="line">pvcreate /dev/sda1</span><br><span class="line">pvscan # 查看pv</span><br><span class="line"></span><br><span class="line"># 创建VG(Volume Group)卷组，把pv加到它下面</span><br><span class="line">vgcreate vgdata /dev/sda1 # vgdata 是卷组名称 </span><br><span class="line"></span><br><span class="line"># 从卷组vgdata中创建lv(Logic Volume)逻辑卷</span><br><span class="line">lvcreate -L 9G -n lv001 vgdata # 分配9G给逻辑卷lv001，这个lv的目录为/dev/vgdata/lv001</span><br><span class="line"></span><br><span class="line"># 格式化lv001的文件系统为ext4</span><br><span class="line">mkfs -t ext4 /dev/vgdata/lv001</span><br><span class="line"></span><br><span class="line"># 创建/data目录，并将/dev/vgdata/lv001挂载到它</span><br><span class="line">mkdir /data</span><br><span class="line">mount /dev/vgdata/lv001 /data </span><br><span class="line"></span><br><span class="line"># 设置开机自动挂载</span><br><span class="line">编辑 /etc/fstab，添加一行:</span><br><span class="line"></span><br><span class="line">/dev/vgdata/lv001   /data  ext4 defaults 0  0</span><br><span class="line"></span><br><span class="line">以上完成就可以使用了。</span><br><span class="line"></span><br><span class="line">## 其他操作</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/large-show/p/16203274.html">https://www.cnblogs.com/large-show/p/16203274.html</a></p>
+<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><p>应用场景：机器新加了一块磁盘，<code>df -h</code>查看，没有看到新加的磁盘。怎么办？</p>
+<h4 id="磁盘分区和挂载"><a href="#磁盘分区和挂载" class="headerlink" title="磁盘分区和挂载"></a>磁盘分区和挂载</h4><p><code>fdisk -l</code> 查看当前系统所有磁盘设备。</p>
+<p><code>fdisk /dev/sdb</code> 进入交互界面，准备对sdb磁盘进行分区。</p>
+<p>指令选项说明: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">m 帮助信息；</span><br><span class="line">n 新建分区</span><br><span class="line">d 删除分区</span><br><span class="line">t 转换系统id，即转换格式</span><br><span class="line">w 保存信息，将变更写入磁盘。</span><br><span class="line">q 退出</span><br></pre></td></tr></table></figure>
+
+<p>输入<code>n</code>进行分区: p表建立主分区</p>
+<p>以上设置仅保存在内存中，输入<code>w</code>正式写到磁盘。</p>
+<p>说明：</p>
+<ul>
+<li>如果出现”All primary partitions are in use”，可输入<code>d</code>删除分区。</li>
+</ul>
+<p>分区完成后，需要格式化磁盘指定文件系统类型，centos7默认为ext4。</p>
+<p><code>mkfs -t ext4 /dev/sdb1</code> # 设置分区sdb1的文件系统类型为ext4。</p>
+<p>格式化完成后，挂载:<br><code>mount /dev/sdb1 /mnt/sdb1</code> # 其中<code>/mnt/sdb1</code>是挂载目录，又称为挂载点。</p>
+<p>执行<code>df -h</code>即可查看到磁盘完成挂载。</p>
+<p>但是，系统在重启之后，发现挂载失效了。</p>
+<p><code>blkid |grep /dev/sda1</code> # 获取分区的uuid</p>
+<p>编辑<code>/etc/fstab</code>，加入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UUID=ea31269e-1e6b-4aac-8b14-19f4c577ce14 /mnt/sda1       ext4   defaults 0    0</span><br></pre></td></tr></table></figure>
+
+<p>执行<code>mount -a</code>加载磁盘挂载。 </p>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42761527/article/details/102862813">https://blog.csdn.net/qq_42761527/article/details/102862813</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/w-wfy/p/8870598.html">https://www.cnblogs.com/w-wfy/p/8870598.html</a>  # 主分区和扩展分区区别</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lvm%E5%8E%9F%E7%90%86"><span class="toc-text">lvm原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%8C%BA"><span class="toc-text">分区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E5%92%8C%E6%8C%82%E8%BD%BD"><span class="toc-text">磁盘分区和挂载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/2023/05/22/第34期：LVM/">https://chenqiaorui.github.io/2023/05/22/第34期：LVM/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2023/05/22/%E7%AC%AC33%E6%9C%9F%EF%BC%9A%E5%B7%A5%E5%85%B7%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          第33期：工具集
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/22/%E7%AC%AC35%E6%9C%9F%EF%BC%9ATELNET/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          第35期：TELNET
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC36%E6%9C%9F%EF%BC%9ARedis/">第36期：Redis</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC35%E6%9C%9F%EF%BC%9ATELNET/">第35期：TELNET</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC34%E6%9C%9F%EF%BC%9ALVM/">第34期：LVM</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC33%E6%9C%9F%EF%BC%9A%E5%B7%A5%E5%85%B7%E9%9B%86/">第33期：工具集</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC32%E6%9C%9F%EF%BC%9AJava/">第32期：Java</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">36</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2023 Ricky Chen.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Emog-LOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Emog-LOL" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Emog-LOL</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  <article id="post-第六期：Nginx" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/20/%E7%AC%AC%E5%85%AD%E6%9C%9F%EF%BC%9ANginx/">第六期：Nginx</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-19T16:42:05.000Z" itemprop="datePublished">2023年05月20日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/20/%E7%AC%AC%E5%85%AD%E6%9C%9F%EF%BC%9ANginx/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nginx # 启动</span><br><span class="line">nginx -t # 测试配置</span><br><span class="line">nginx -s reload # 重载配置</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen      88;</span><br><span class="line">    server_name localhost;</span><br><span class="line">    charset     utf-8;</span><br><span class="line">    index       index.html index.htm;</span><br><span class="line">    access_log  logs/access.log;</span><br><span class="line">    location / &#123;</span><br><span class="line">        return 200 &quot;test conf&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="重定向（地址会变）"><a href="#重定向（地址会变）" class="headerlink" title="重定向（地址会变）"></a>重定向（地址会变）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    return 302 http://localhost:89/$request_uri;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># redirect.conf</span><br><span class="line">server &#123;</span><br><span class="line">    listen      89;</span><br><span class="line">    server_name localhost;</span><br><span class="line">    charset     utf-8;</span><br><span class="line">    index       index.html index.htm;</span><br><span class="line">    access_log  logs/access.log;</span><br><span class="line">    location / &#123;</span><br><span class="line">        return 200 &quot;after redirect uri&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">进行测试：curl -L localhost:88</span><br><span class="line">返回：after redirect uri</span><br></pre></td></tr></table></figure>
+<h3 id="匹配以-x2F-api-x2F-开头的uri"><a href="#匹配以-x2F-api-x2F-开头的uri" class="headerlink" title="匹配以&#x2F;api&#x2F;开头的uri"></a>匹配以&#x2F;api&#x2F;开头的uri</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ^/api/ &#123;</span><br><span class="line">  proxy_pass http://loclhost:8090;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="一、centos7安装Nginx"><a href="#一、centos7安装Nginx" class="headerlink" title="一、centos7安装Nginx"></a>一、centos7安装Nginx</h4><h5 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h5><ul>
+<li><a target="_blank" rel="noopener" href="http://nginx.org/download/">所有nginx版本</a></li>
+</ul>
+<p>wget下载tar.gz包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.20.1.tar.gz</span><br><span class="line"></span><br><span class="line"># 解压</span><br><span class="line">tar xzf nginx-1.20.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>编译</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.20.1 &amp;&amp; ./configure</span><br></pre></td></tr></table></figure>
+<p>注意：<code>安装报错误的话比如：&quot;C compiler cc is not found&quot;，这个就是缺少编译环境，安装一下就可以了 yum -y install gcc make gcc-c++ openssl-devel</code></p>
+<p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>nignx会被安装到<code>/usr/local/nginx</code>目录下</li>
+</ul>
+<p>nginx测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ which nginx</span><br><span class="line">/usr/bin/nginx</span><br><span class="line"></span><br><span class="line">nginx # 启动nginx</span><br><span class="line">ps aux|grep nginx # 查看nginx进程</span><br><span class="line">nginx -s stop # 停止nginx</span><br><span class="line"></span><br><span class="line">nginx -v # nginx 版本</span><br><span class="line">nginx -t # 测试配置文件</span><br><span class="line">nginx -s reload # 重载配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>防火墙设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld # 查看防火墙状态</span><br></pre></td></tr></table></figure>
+
+<p>设置放行端口，编辑<code>/etc/firewalld/zones/public.xml</code>文件，在</zone>前面加:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;zone&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;port port=&quot;30000-30100&quot; protocol=&quot;tcp&quot;/&gt;</span><br><span class="line">  &lt;port port=&quot;80&quot; protocol=&quot;tcp&quot;/&gt;</span><br><span class="line">&lt;/zone&gt;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>可以设置端口段或单个端口</li>
+</ul>
+<p>配完文件后重载<code>firewall-cmd --reload</code>，查看被放行的端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --list-ports </span><br></pre></td></tr></table></figure>
+
+<h4 id="二、配置文件"><a href="#二、配置文件" class="headerlink" title="二、配置文件"></a>二、配置文件</h4><p>查看<code>/usr/local/nginx/conf/nginx.conf</code>文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">                      &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                      &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">    access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    gzip  on;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    include  vhost/*.conf;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><p><code>worker_processes</code> - work进程数，一般根据cpu核数来设置，可以设为和CPU的数量一样</p>
+</li>
+<li><p><code>worker_connections</code> - 单个work进程可以连的并发连接数，连接数依赖于系统级别的进程可打开文件数，<code>ulimit -n</code>可查看</p>
+<p><code>cat /proc/nginx_work_pid/limits</code> 里面的<code>Max open files</code>也可查询。</p>
+</li>
+<li><p><code>log_format</code> - 设置nginx日志格式</p>
+</li>
+<li><p><code>access_log</code> - 设置文件存储位置和应用的日志格式</p>
+</li>
+<li><p><code>sendfile</code> - 开启文件高效传输模式</p>
+</li>
+<li><p><code>keepalive_timeout</code> - 客户端和nginx之间建立的tcp长连接维持时间</p>
+</li>
+<li><p><code>gzip</code> - 开启gzip模块，文件被压缩传到客户端，优化传输效率，有效节省带宽。</p>
+</li>
+<li><p><code>listen 80</code> - 监听80端口</p>
+</li>
+<li><p><code>root   html;</code> - 相当于<code>root /usr/local/nginx/html</code></p>
+</li>
+<li><p><code>index index.html</code> - 查找<code>/usr/local/nginx/html</code>目录下的index.html文件</p>
+</li>
+<li><p><code>include</code> - 添加配置文件</p>
+</li>
+</ul>
+<p>示例：在vhost下添加配置文件<code>test.conf</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name 192.168.1.189;</span><br><span class="line">    location /ricky/ &#123;</span><br><span class="line">	    return 200 &quot;im ricky&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>server_name指定为本机的ip而不是localhost，因为上一目录nginx.conf配置的localhost</li>
+<li>指定访问前缀为&#x2F;ricky&#x2F;</li>
+</ul>
+<p>检查并重载配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<p>访问：curl <a target="_blank" rel="noopener" href="http://192.168.1.189/ricky/">http://192.168.1.189:80/ricky/</a><br>注意：</p>
+<ul>
+<li><p>访问的时候<code>192.168.1.189</code> 不能写成localhost，不然匹配规则就跑到nginx.conf里面的server去了</p>
+</li>
+<li><p>ricky后面的<code>/</code>不可以省略；如果想省略，可以把<code>location /ricky/</code>写成<code>location /ricky</code></p>
+<p><code>location /ricky</code>既会匹配到<code>http://192.168.1.189:80/ricky</code>的路由，也会匹配到<code>http://192.168.1.189:80/rickyadsafaf/a</code></p>
+<p>总的来说，nginx先在所有配置文件中匹配端口-&gt;再到server_name-&gt;具体location(location之间又有优先级的区分)</p>
+</li>
+</ul>
+<h4 id="三、location优先级"><a href="#三、location优先级" class="headerlink" title="三、location优先级"></a>三、location优先级</h4><p>优先级高到低</p>
+<ul>
+<li><code>location = /uri</code> - 字符 <code>=</code> 表示精准匹配（精准匹配优先级最高）</li>
+<li><code>location ^~ /uri</code> - 字符 <code>^</code> 表示以&#x2F;test开头的路径，<code>~</code> 表区分大小写；但是 <code>~*</code> 表不区分大小写(带 <code>~*</code> 等修饰符优先级次之)</li>
+<li><code>location /url</code> - 不带修饰符的前缀再次之</li>
+<li><code>location /</code> - 最后是交给<code>/</code>通用匹配。</li>
+</ul>
+<p>示例1：比较精准和带修饰符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name 192.168.1.189;</span><br><span class="line">    location = /ricky &#123;</span><br><span class="line">	    return 200 &quot;精准&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ^~ /ricky &#123;</span><br><span class="line">	    return 200 &quot;修饰符&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>重载配置并访问：<code>curl http://192.168.1.189:80/ricky</code>，输出<code>精准</code></p>
+<p>示例2：比较带修饰符和不带修饰符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name 192.168.1.189;</span><br><span class="line">    location ^~ ricky &#123;</span><br><span class="line">	    return 200 &quot;精准&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">	    return 200 &quot;通用&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>重载配置并访问：<code>curl http://192.168.1.189:80/ricky</code>，输出<code>精准</code>；访问不在&#x2F;ricky规则内的就打出<code>通用</code>，如<code>curl http://192.168.1.189:80/ris</code></p>
+<h4 id="nginx不需要后端就可以返回远程用户ip的配置"><a href="#nginx不需要后端就可以返回远程用户ip的配置" class="headerlink" title="nginx不需要后端就可以返回远程用户ip的配置"></a>nginx不需要后端就可以返回远程用户ip的配置</h4><p>配置:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location /ip &#123;</span><br><span class="line">    default_type text/plain;</span><br><span class="line">    return 200 $remote_addr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>访问</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl https://example.com/ip</span><br><span class="line">192.168.1.187</span><br></pre></td></tr></table></figure>
+
+<p>返回json格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl -s https://example.com/json_ip | jq</span><br><span class="line">&#123;</span><br><span class="line">    &quot;ip&quot;: &quot;192.168.1.187&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/4/index.html">https://chenqiaorui.github.io/page/4/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第五期：CDN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/20/%E7%AC%AC%E4%BA%94%E6%9C%9F%EF%BC%9ACDN/">第五期：CDN</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-19T16:21:56.000Z" itemprop="datePublished">2023年05月20日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/20/%E7%AC%AC%E4%BA%94%E6%9C%9F%EF%BC%9ACDN/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="CDN介绍"><a href="#CDN介绍" class="headerlink" title="CDN介绍"></a>CDN介绍</h3><p>Content Delivery Network 内容分发网络</p>
+<p>原理：自有域名以CNAME方式绑定运营商提供对加速域名，CDN配置目标源站，获取静态资源返回给边缘节点。</p>
+<p>以阿里云CDN为例:</p>
+<ul>
+<li>添加域名<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">加速域名  a.example.com（自有域名）</span><br><span class="line">业务类型  图片小文件</span><br><span class="line">加速区域  仅中国内地</span><br><span class="line"></span><br><span class="line">源站信息（以OSS为例）</span><br><span class="line">  - 源站类型：oss</span><br><span class="line">  - 域名：bucket.oss-cn-beijing.aliyun.com</span><br><span class="line">  - 优先级：主</span><br><span class="line">  - 端口：80</span><br></pre></td></tr></table></figure></li>
+<li>缓存配置<br>可以设置静态文件如png的过期时间，提高命中率<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">地址：jpg</span><br><span class="line">类型：文件后缀名</span><br><span class="line">过期时间：10分钟</span><br></pre></td></tr></table></figure></li>
+<li>访问控制<br>设置防盗链白名单，以实现身份验证（允许空refer）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">localhost</span><br><span class="line">a.b.com</span><br><span class="line">*.example.com</span><br></pre></td></tr></table></figure></li>
+<li>刷新预热<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">刷新：删除cdn节点上的缓存数据，重新回源取数据</span><br><span class="line">预热：从源站取数据存到cdn节点，提升用户体验</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/4/index.html">https://chenqiaorui.github.io/page/4/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第四期：AI工具集合汇总" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/18/%E7%AC%AC%E5%9B%9B%E6%9C%9F%EF%BC%9AAI%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88%E6%B1%87%E6%80%BB/">第四期：AI工具集合汇总</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-18T06:40:12.000Z" itemprop="datePublished">2023年05月18日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/18/%E7%AC%AC%E5%9B%9B%E6%9C%9F%EF%BC%9AAI%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88%E6%B1%87%E6%80%BB/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>GPT-DEMO(<a target="_blank" rel="noopener" href="https://www.gptdemo.net/">https://www.gptdemo.net/</a>)</p>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/4/index.html">https://chenqiaorui.github.io/page/4/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第三期：Python学习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/18/%E7%AC%AC%E4%B8%89%E6%9C%9F%EF%BC%9APython%E5%AD%A6%E4%B9%A0/">第三期：Python学习</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-18T06:00:32.000Z" itemprop="datePublished">2023年05月18日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/18/%E7%AC%AC%E4%B8%89%E6%9C%9F%EF%BC%9APython%E5%AD%A6%E4%B9%A0/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Python编译器"><a href="#Python编译器" class="headerlink" title="Python编译器"></a>Python编译器</h2><ul>
+<li>linux自带python2.7</li>
+<li>Windows 可以在Python官网 <a target="_blank" rel="noopener" href="https://www.python.org/">https://www.python.org/</a> 下载.exe</li>
+</ul>
+<h2 id="运行python"><a href="#运行python" class="headerlink" title="运行python"></a>运行python</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python --version 或 python3 --version</span><br><span class="line"></span><br><span class="line">python3 # 进入交互环境，打印python版本</span><br><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; print(sys.version) </span><br></pre></td></tr></table></figure>
+
+<h2 id="编辑工具"><a href="#编辑工具" class="headerlink" title="编辑工具"></a>编辑工具</h2><p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Visual Studio Code</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm/download/">PyCharm</a></p>
+<h2 id="编写文件及运行"><a href="#编写文件及运行" class="headerlink" title="编写文件及运行"></a>编写文件及运行</h2><p>编辑hello.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(&#x27;hello python&#x27;)</span><br></pre></td></tr></table></figure>
+<p>python hello.py # 执行</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">hello boy</span><br><span class="line"></span><br><span class="line">Version: 0.1</span><br><span class="line">Author: Ricky Chen</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line"># hello world</span><br><span class="line"></span><br><span class="line">print(&#x27;hello&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a = 10</span><br><span class="line">b = 10.23</span><br><span class="line"></span><br><span class="line">print(a + b) # 20.23</span><br><span class="line"></span><br><span class="line">c = 3</span><br><span class="line">print(a / c) # 除法，3.3333333333333335</span><br><span class="line">print(a % c) # 取余，1</span><br><span class="line"></span><br><span class="line">d = &#x27;hello, world&#x27;</span><br><span class="line">e = True</span><br><span class="line"></span><br><span class="line">print(type(a)) # 打印变量类型</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量类型转换和input使用"><a href="#变量类型转换和input使用" class="headerlink" title="变量类型转换和input使用"></a>变量类型转换和input使用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">输入a，b，转换成正数</span><br><span class="line">%d表示整数占位符，进行a+b</span><br><span class="line"></span><br><span class="line">Author: Ricky</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">a = int(input(&#x27;a = &#x27;))</span><br><span class="line">b = int(input(&#x27;b = &#x27;))</span><br><span class="line"></span><br><span class="line">print(&#x27;%d + %d = %d&#x27; % (a, b, a + b)) # 10 + 3 = 13</span><br><span class="line">print(&#x27;%d / %d = %d&#x27; % (a, b, a / b)) # 10 / 3 = 3，本来输出浮点数的，但是被%d转化了</span><br><span class="line">print(&#x27;%d // %d = %d&#x27; % (a, b, a // b)) # 10 // 3 = 3</span><br></pre></td></tr></table></figure>
+
+<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">复合赋值运算符</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">a = 5</span><br><span class="line">b = 2</span><br><span class="line">a += b # 等价 a = a + b</span><br><span class="line">print(a) # 7</span><br><span class="line">a *= b # 等价 a = a * b</span><br><span class="line">print(a) # 14</span><br></pre></td></tr></table></figure>
+<p>up <a target="_blank" rel="noopener" href="https://github.com/jackfrued/Python-100-Days/blob/master/Day01-15/02.%E8%AF%AD%E8%A8%80%E5%85%83%E7%B4%A0.md">https://github.com/jackfrued/Python-100-Days/blob/master/Day01-15/02.%E8%AF%AD%E8%A8%80%E5%85%83%E7%B4%A0.md</a></p>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/4/index.html">https://chenqiaorui.github.io/page/4/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第二期-hexo-github部署个人博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/18/%E7%AC%AC%E4%BA%8C%E6%9C%9F-hexo-github%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">第二期: hexo + github部署个人博客</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-18T04:29:50.000Z" itemprop="datePublished">2023年05月18日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/18/%E7%AC%AC%E4%BA%8C%E6%9C%9F-hexo-github%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="github创建项目"><a href="#github创建项目" class="headerlink" title="github创建项目"></a>github创建项目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">仓库名称: $&#123;username&#125;.github.io # username是github账号名称</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考第一期用hexo创建了项目blog，修改站点配置文件-config-yaml"><a href="#参考第一期用hexo创建了项目blog，修改站点配置文件-config-yaml" class="headerlink" title="参考第一期用hexo创建了项目blog，修改站点配置文件_config.yaml"></a>参考第一期用hexo创建了项目blog，修改站点配置文件_config.yaml</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/chenqiaorui/chenqiaorui.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<h3 id="安装hexo-Git部署插件"><a href="#安装hexo-Git部署插件" class="headerlink" title="安装hexo-Git部署插件"></a>安装hexo-Git部署插件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署到远程仓库chenqiaorui-github-io"><a href="#部署到远程仓库chenqiaorui-github-io" class="headerlink" title="部署到远程仓库chenqiaorui.github.io"></a>部署到远程仓库chenqiaorui.github.io</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean # 删除public目录</span><br><span class="line">hexo g # 创建静态资源public目录</span><br><span class="line">hexo d # 部署到远程chenqiaorui.github.io项目，部署后要等github部署完成后生效，有时可能有缓存，ctrl+F5强制刷新。</span><br></pre></td></tr></table></figure>
+
+<h3 id="绑定域名-lt-可选-gt"><a href="#绑定域名-lt-可选-gt" class="headerlink" title="绑定域名&lt;可选&gt;"></a>绑定域名&lt;可选&gt;</h3><p>第一步：dns服务器设置别名：mydomain.cn  CNAME chenqiaorui.github.io</p>
+<p>第二步: 登录GitHub，进入之前创建的仓库，点击settings，设置Custom domain，输入 mydomain.cn 域名</p>
+<h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p>将Next主题下载到blog目录的themes主题下的next文件夹中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+
+<p>打开站点的_config.yml配置文件，修改主题为next。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+
+<p>next主题有很多样式，可以用Pisces、Muse、Mist，在themes&#x2F;next目录下，打开_config.yaml，配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheme: Pisces # 选用Pisces样式</span><br></pre></td></tr></table></figure>
+
+<p>（全文完）</p>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/4/index.html">https://chenqiaorui.github.io/page/4/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第一期：使用hexo搭建个人博客页面" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/18/%E7%AC%AC%E4%B8%80%E6%9C%9F%EF%BC%9A%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%A1%B5%E9%9D%A2/">第一期：使用hexo搭建个人博客页面</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-18T02:52:04.000Z" itemprop="datePublished">2023年05月18日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/18/%E7%AC%AC%E4%B8%80%E6%9C%9F%EF%BC%9A%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%A1%B5%E9%9D%A2/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br><span class="line">$ hexo init blog</span><br><span class="line">$ cd blog</span><br></pre></td></tr></table></figure>
+<h3 id="创建页面"><a href="#创建页面" class="headerlink" title="创建页面"></a>创建页面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;第一期：使用hexo搭建个人博客页面&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="运行监听服务"><a href="#运行监听服务" class="headerlink" title="运行监听服务"></a>运行监听服务</h3><p>修改页面不需要重启服务，但如果是修改站点配置_config.yaml就需要重启</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="生成public目录用于部署"><a href="#生成public目录用于部署" class="headerlink" title="生成public目录用于部署"></a>生成public目录用于部署</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<p>参考来源</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">hexojs</a></li>
+</ul>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/4/index.html">https://chenqiaorui.github.io/page/4/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+
+    <nav id="page-nav">
+
+<a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+</nav>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC36%E6%9C%9F%EF%BC%9ARedis/">第36期：Redis</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC35%E6%9C%9F%EF%BC%9ATELNET/">第35期：TELNET</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC34%E6%9C%9F%EF%BC%9ALVM/">第34期：LVM</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC33%E6%9C%9F%EF%BC%9A%E5%B7%A5%E5%85%B7%E9%9B%86/">第33期：工具集</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/22/%E7%AC%AC32%E6%9C%9F%EF%BC%9AJava/">第32期：Java</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">36</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2023 Ricky Chen.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+
+
+</body>
+</html>
