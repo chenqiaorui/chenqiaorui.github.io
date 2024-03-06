@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>第40期：Maven | Emog-LOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Emog-LOL" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Emog-LOL</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-第40期：Maven" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      第40期：Maven
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-26T05:07:00.000Z" itemprop="datePublished">2023年05月26日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2023/05/26/%E7%AC%AC40%E6%9C%9F%EF%BC%9AMaven/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h3><h4 id="属性介绍"><a href="#属性介绍" class="headerlink" title="属性介绍"></a>属性介绍</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;   // 团队标志。约定为组织的逆向名称，如org.apache</span><br><span class="line">&lt;artifactId&gt; // 项目唯一标识符。如tomcat，不要在artifactId包含.</span><br><span class="line">&lt;packaging&gt;  // 项目打包后的输出，默认为jar，类型为war产生一个web应用。</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>环境：centos7</p>
+<p>官网地址：<a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/maven</span><br><span class="line">wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz --no-check-certificate</span><br><span class="line">tar -xzvf apache-maven-3.8.6-bin.tar.gz</span><br><span class="line">mv apache-maven-3.8.6 maven</span><br><span class="line"></span><br><span class="line"># vi /etc/profile，加入</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:/opt/maven/maven/bin</span><br><span class="line"></span><br><span class="line"># 执行 source /etc/profile</span><br><span class="line"></span><br><span class="line">mvn -v</span><br></pre></td></tr></table></figure>
+
+<h4 id="pom-xml介绍"><a href="#pom-xml介绍" class="headerlink" title="pom.xml介绍"></a>pom.xml介绍</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># &lt;dependences&gt;标签包含的属性标签：</span><br><span class="line">&lt;groupId&gt; // 项目组织，对应包结构</span><br><span class="line">&lt;artifactId&gt; // 项目名称，对应根目录</span><br><span class="line">&lt;version&gt; // jar版本，可以在&lt;properties&gt;中定义</span><br><span class="line">&lt;scope&gt; // jar包作用范围。可以填写compile，runtime，test，system，provided。</span><br><span class="line">&lt;dependenceManage&gt; // 依赖声明，包不会被mvn加载，但可以被子pom.xml继承，这样子pom只需要声明&lt;groupId&gt;和&lt;artifactId&gt;，dependenceManage就是用来做版本统一的。</span><br><span class="line">&lt;properties&gt; // 定义属性，$&#123;property&#125;调用</span><br><span class="line">&lt;properties&gt;</span><br><span class="line">  &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;  // 指定maven构建时的编码</span><br><span class="line">  &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt; // 指定构建时的jdk版本</span><br><span class="line">  &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如何寻找jar包？</p>
+<p>在 (<a target="_blank" rel="noopener" href="http://mvnrepository.com/">http://mvnrepository.com/</a>) 搜索关键字，如log4j。</p>
+<h4 id="如何一次编译多个project？"><a href="#如何一次编译多个project？" class="headerlink" title="如何一次编译多个project？"></a>如何一次编译多个project？</h4><p>父工程app包含子app1和app2，在app的pom.xml引入两个字module</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;project&gt;</span><br><span class="line">...</span><br><span class="line">&lt;modules&gt;</span><br><span class="line">    &lt;module&gt;app1&lt;/module&gt;</span><br><span class="line">    &lt;module&gt;app2&lt;/module&gt;</span><br><span class="line">  &lt;/modules&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="Maven命令"><a href="#Maven命令" class="headerlink" title="Maven命令"></a>Maven命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mvn compile // 编译项目源码</span><br><span class="line">mvn test // 使用合适单元测试框架进行测试</span><br><span class="line">mvn verify // 执行所有检查，验证包是有效的</span><br><span class="line">mvn install // 安装包到本地仓库</span><br><span class="line">mvn clean package -Dmaven.test.skip=true // 跳过单元测试</span><br><span class="line">mvn compile process-resources package # 包含静态资源的编译打包</span><br><span class="line">mvn clean package -pl com.emog:cpe-app -am -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
+
+<h4 id="Maven全局配置settings-xml"><a href="#Maven全局配置settings-xml" class="headerlink" title="Maven全局配置settings.xml"></a>Maven全局配置settings.xml</h4><p>settings.xml存在两个位置</p>
+<ul>
+<li>${maven_home}&#x2F;conf&#x2F;settings.xml &#x2F;&#x2F; 全局配置</li>
+<li>${home}&#x2F;.m2&#x2F;settings.xml &#x2F;&#x2F; 用户配置</li>
+</ul>
+<p>pom.xml是本地项目配置</p>
+<p>说明：pom.xml &gt; 用户配置 &gt; 全局配置（使用优先级比较）</p>
+<p>settings.xml内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;localRepository&gt;~/.m2/repository&lt;/localRepository&gt; // 本地仓库路径配置</span><br><span class="line">&lt;servers&gt; // 一些包的拉取需要认证，这些信息不适合配在pom</span><br><span class="line">&lt;mirrors&gt; // 仓库镜像地址</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用问题"><a href="#常用问题" class="headerlink" title="常用问题"></a>常用问题</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 执行 mvn package 或 mvn install 时，会自动编译所有单元测试(src/test/java 目录下的代码)，如何跳过这一步？</span><br><span class="line">  在执行命令的后面，添加命令行参数 -Dmaven.test.skip=true 或者 -DskipTests=true</span><br><span class="line"></span><br><span class="line">参考：https://github.com/dunwu/java-tutorial/blob/master/docs/11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven/04.Maven%E5%AE%9E%E6%88%98%E9%97%AE%E9%A2%98%E5%92%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.md</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署-maven-私服-Nexus"><a href="#部署-maven-私服-Nexus" class="headerlink" title="部署 maven 私服 Nexus"></a>部署 maven 私服 Nexus</h3><p>参考：<a target="_blank" rel="noopener" href="https://github.com/dunwu/java-tutorial/blob/master/docs/11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven/05.Maven%E6%95%99%E7%A8%8B%E4%B9%8B%E5%8F%91%E5%B8%83jar%E5%88%B0%E7%A7%81%E6%9C%8D%E6%88%96%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93.md">https://github.com/dunwu/java-tutorial/blob/master/docs/11.%E8%BD%AF%E4%BB%B6/01.%E6%9E%84%E5%BB%BA/01.Maven/05.Maven%E6%95%99%E7%A8%8B%E4%B9%8B%E5%8F%91%E5%B8%83jar%E5%88%B0%E7%A7%81%E6%9C%8D%E6%88%96%E4%B8%AD%E5%A4%AE%E4%BB%93%E5%BA%93.md</a></p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Maven"><span class="toc-text">Maven</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E4%BB%8B%E7%BB%8D"><span class="toc-text">属性介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pom-xml%E4%BB%8B%E7%BB%8D"><span class="toc-text">pom.xml介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%B8%80%E6%AC%A1%E7%BC%96%E8%AF%91%E5%A4%9A%E4%B8%AAproject%EF%BC%9F"><span class="toc-text">如何一次编译多个project？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Maven%E5%91%BD%E4%BB%A4"><span class="toc-text">Maven命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Maven%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEsettings-xml"><span class="toc-text">Maven全局配置settings.xml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%97%AE%E9%A2%98"><span class="toc-text">常用问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2-maven-%E7%A7%81%E6%9C%8D-Nexus"><span class="toc-text">部署 maven 私服 Nexus</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/2023/05/26/第40期：Maven/">https://chenqiaorui.github.io/2023/05/26/第40期：Maven/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2023/05/25/%E7%AC%AC39%E6%9C%9F%EF%BC%9Astrace/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          第39期：strace
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/26/%E7%AC%AC41%E6%9C%9F%EF%BC%9Ased/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          第41期：sed
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/06/%E7%AC%AC45%E6%9C%9F%EF%BC%9A%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AD%96%E7%95%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/06/%E7%AC%AC44%E6%9C%9F%EF%BC%9A%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC43%E6%9C%9F%EF%BC%9Arabbitmq/">第43期：rabbitmq</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC42%E6%9C%9F%EF%BC%9Axargs/">第42期：xargs</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC41%E6%9C%9F%EF%BC%9Ased/">第41期：sed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">43</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    <!-- 
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+ -->
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 Ricky Chen.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

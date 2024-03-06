@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Emog-LOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Emog-LOL" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Emog-LOL</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  <article id="post-第25期：supervisor" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC25%E6%9C%9F%EF%BC%9Asupervisor/">第25期：supervisor</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T07:38:25.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC25%E6%9C%9F%EF%BC%9Asupervisor/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="supervisor启动查找supervisord-conf配置文件顺序"><a href="#supervisor启动查找supervisord-conf配置文件顺序" class="headerlink" title="supervisor启动查找supervisord.conf配置文件顺序"></a>supervisor启动查找supervisord.conf配置文件顺序</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$CWD/supervisord.conf -&gt; $CWD/etc/supervisord.conf -&gt; /etc/supervisord.conf     # 优先级由高到低</span><br><span class="line"></span><br><span class="line">supervisord -c /etc/supervisord.conf</span><br><span class="line">supervisorctl -c /etc/supervisord.conf # 直接指定</span><br></pre></td></tr></table></figure>
+
+<h4 id="supervisor作用？"><a href="#supervisor作用？" class="headerlink" title="supervisor作用？"></a>supervisor作用？</h4><p>集中管理子进程</p>
+<h4 id="supervisor的组件"><a href="#supervisor的组件" class="headerlink" title="supervisor的组件"></a>supervisor的组件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">supervisord          # supervisor的服务端</span><br><span class="line">supervisorctl        # supervisor的客户端</span><br></pre></td></tr></table></figure>
+
+<h5 id="配置文件详解"><a href="#配置文件详解" class="headerlink" title="配置文件详解"></a>配置文件详解</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[unix_http_server]            </span><br><span class="line">file=/tmp/supervisor.sock   ; socket文件作用：supervisorctl与supervisord(服务端)通信</span><br><span class="line">;chmod=0700                 ; socket文件权限</span><br><span class="line">;username=user              ; 使用supervisorctl时候的认证用户，默认不认证</span><br><span class="line">;password=123</span><br><span class="line"></span><br><span class="line">[supervisord]               ; 定义supervisord服务端运行时的参数</span><br><span class="line">logfile=/tmp/supervisord.log; 定义supervisord主进程</span><br><span class="line">logfile_maxbytes=50MB       ; 设置文件最大；超过50M则生成新的文件</span><br><span class="line">pidfile=/tmp/supervisord.pid; pid文件</span><br><span class="line">nodaemon=false              ; 以守护进程运行</span><br><span class="line"></span><br><span class="line">[supervisorctl]              ;这个主要是针对supervisorctl的一些配置  </span><br><span class="line">serverurl=unix:///tmp/supervisor.sock ; 这个是supervisorctl本地连接supervisord的时候，本地UNIX socket路径，注意这个是和前面的[unix_http_server]对应的；默认值就是unix:///tmp/supervisor.sock</span><br><span class="line"></span><br><span class="line">[program:create_elastic_index]             </span><br><span class="line">command                 = /opt/php/bin/php /data/website/clou/artisan queue:work --queue=create_elastic_index --tries=3 --daemon    ;  command不能是后台进程</span><br><span class="line">directory               = /data/website/cloer-v2                                                                                    ; 进程运行前会切换到此目录</span><br><span class="line">process_name            = %(program_name)s_%(process_num)s</span><br><span class="line">priority                = 999            ; 进程启动优先级，优先级低的先启动</span><br><span class="line">numprocs                = 2</span><br><span class="line">autostart               = true</span><br><span class="line">autorestart             = true            ; 如果为unexpected，只有当进程的退出码不在下面的exitcodes里面定义的退出码时才会被重启；true表进程只要挂掉就无条件重启。</span><br><span class="line">;exitcodes              = 0,2</span><br><span class="line">stdout_logfile          = /data/website/cloudedr-v2/storage/logs/supervisor-clip_crdex.log</span><br><span class="line">stdout_logfile_maxbytes = 10MB</span><br><span class="line">stderr_logfile          = /data/website/cloudeder-v2/storage/logs/supervisor-clip_crdex.log</span><br><span class="line">stderr_logfile_maxbytes = 10MB</span><br><span class="line">umask=002</span><br><span class="line">user=nobody</span><br></pre></td></tr></table></figure>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第24期：DOCKER" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC24%E6%9C%9F%EF%BC%9ADOCKER/">第24期：DOCKER</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T07:36:59.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC24%E6%9C%9F%EF%BC%9ADOCKER/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="安装docker-ce"><a href="#安装docker-ce" class="headerlink" title="安装docker-ce"></a>安装docker-ce</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"># 安装一些必要的系统工具</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"></span><br><span class="line"># 添加源信息</span><br><span class="line"># docker 官方源</span><br><span class="line">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"># 阿里云源</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"># 安装前可以先更新 yum 缓存：</span><br><span class="line">sudo yum makecache fast</span><br><span class="line"># 安装 Docker-ce</span><br><span class="line">sudo yum install docker-ce</span><br><span class="line"></span><br><span class="line"># 如果你想安装特定 docker-ce 版本，先列出 repo 中可用版本，然后选择安装</span><br><span class="line">$ yum list docker-ce --showduplicates | sort -r</span><br><span class="line"># docker-ce.x86_64       18.06.1.ce-3.el7              docker-ce-stable</span><br><span class="line"># docker-ce.x86_64       18.06.1.ce-3.el7              @docker-ce-stable</span><br><span class="line"># docker-ce.x86_64       18.06.0.ce-3.el7              docker-ce-stable</span><br><span class="line"># docker-ce.x86_64       18.03.1.ce-1.el7.centos       docker-ce-stable</span><br><span class="line"># docker-ce.x86_64       18.03.0.ce-1.el7.centos       docker-ce-stable</span><br><span class="line"># docker-ce.x86_64       17.12.1.ce-1.el7.centos       docker-ce-stable</span><br><span class="line"># 选择版本安装</span><br><span class="line">$ sudo yum install docker-ce-&lt;VERSION STRING&gt;</span><br><span class="line"></span><br><span class="line"># 选择安装 docker-ce-18.06.1.ce</span><br><span class="line">$ sudo yum install docker-ce-18.06.1.ce</span><br><span class="line"></span><br><span class="line"># 启动 Docker 后台服务</span><br><span class="line">sudo systemctl start docker</span><br><span class="line"></span><br><span class="line"># 通过运行 hello-world 镜像，验证是否正确安装了 docker</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<h4 id="命令介绍"><a href="#命令介绍" class="headerlink" title="命令介绍"></a>命令介绍</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">$ docker --help</span><br><span class="line"></span><br><span class="line">管理命令:</span><br><span class="line">  container   管理容器</span><br><span class="line">  image       管理镜像</span><br><span class="line">  network     管理网络</span><br><span class="line">命令：</span><br><span class="line">  attach      介入到一个正在运行的容器</span><br><span class="line">  build       根据 Dockerfile 构建一个镜像</span><br><span class="line">  commit      根据容器的更改创建一个新的镜像</span><br><span class="line">  cp          在本地文件系统与容器中复制 文件/文件夹</span><br><span class="line">  create      创建一个新容器</span><br><span class="line">  exec        在容器中执行一条命令</span><br><span class="line">  images      列出镜像</span><br><span class="line">  kill        杀死一个或多个正在运行的容器    </span><br><span class="line">  logs        取得容器的日志</span><br><span class="line">  pause       暂停一个或多个容器的所有进程</span><br><span class="line">  ps          列出所有容器</span><br><span class="line">  pull        拉取一个镜像或仓库到 registry</span><br><span class="line">  push        推送一个镜像或仓库到 registry</span><br><span class="line">  rename      重命名一个容器</span><br><span class="line">  restart     重新启动一个或多个容器</span><br><span class="line">  rm          删除一个或多个容器</span><br><span class="line">  rmi         删除一个或多个镜像</span><br><span class="line">  run         在一个新的容器中执行一条命令</span><br><span class="line">  search      在 Docker Hub 中搜索镜像</span><br><span class="line">  start       启动一个或多个已经停止运行的容器</span><br><span class="line">  stats       显示一个容器的实时资源占用</span><br><span class="line">  stop        停止一个或多个正在运行的容器</span><br><span class="line">  tag         为镜像创建一个新的标签</span><br><span class="line">  top         显示一个容器内的所有进程</span><br><span class="line">  unpause     恢复一个或多个容器内所有被暂停的进程</span><br></pre></td></tr></table></figure>
+
+<h4 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker pull centos:latest  # 从docker.io中下载centos镜像到本地</span><br><span class="line">docker images              # 查看已下载的镜像</span><br><span class="line">docker rmi [image_id]      # 删除镜像，指定镜像id</span><br><span class="line"></span><br><span class="line"># 删除所有镜像</span><br><span class="line"># none 默认为 docker.io</span><br><span class="line">docker rmi $(docker images | grep none | awk &#x27;&#123;print $3&#125;&#x27; | sort -r)</span><br><span class="line"></span><br><span class="line"># 连接进行进入命令行模式，exit命令退出。</span><br><span class="line">docker run -t -i nginx:latest /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h5 id="通过容器创建镜像"><a href="#通过容器创建镜像" class="headerlink" title="通过容器创建镜像"></a>通过容器创建镜像</h5><p>两种方式：<br>1.从已经创建的容器中更新镜像，并且提交这个镜像<br>2.使用 Dockerfile 指令来创建一个新的镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 第一种</span><br><span class="line">docker commit -m=&quot;First Docker&quot; -a=&quot;wcjiang&quot; a6b0a6cfdacf wcjiang/nginx:v1.2.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 第二种</span><br><span class="line">touch Dockerfile .dockerignore</span><br></pre></td></tr></table></figure>
+<p>.dockerignoren内容（用于忽略加入镜像的内容）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.git</span><br><span class="line">node_modules</span><br><span class="line">npm-debug.log</span><br></pre></td></tr></table></figure>
+<p>Dockerfile内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM node:8.4</span><br><span class="line">COPY . /app</span><br><span class="line">WORKDIR /app</span><br><span class="line">RUN npm install --registry=https://registry.npm.taobao.org</span><br><span class="line">EXPOSE 3000</span><br></pre></td></tr></table></figure>
+<h5 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h5><p>docker build -t koa-demo .</p>
+<h5 id="发布镜像"><a href="#发布镜像" class="headerlink" title="发布镜像"></a>发布镜像</h5><p>docker tag wcjiang&#x2F;nginx:v1.2.1 wcjiang&#x2F;nginx-test:lastest<br>docker login<br>docker push wcjiang&#x2F;nginx-test:lastest</p>
+<h5 id="镜像安装软件"><a href="#镜像安装软件" class="headerlink" title="镜像安装软件"></a>镜像安装软件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 第一次需要运行这个命令，确保源的索引是最新的</span><br><span class="line"># 同步 /etc/apt/sources.list 和 /etc/apt/sources.list.d 中列出的源的索引</span><br><span class="line">apt-get update</span><br><span class="line"># 做过上面更新同步之后，可以运行下面的命令了</span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
+
+<h5 id="容器管理"><a href="#容器管理" class="headerlink" title="容器管理"></a>容器管理</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># 列出本机正在运行的容器</span><br><span class="line">docker container ls</span><br><span class="line"># 列出本机所有容器，包括终止运行的容器</span><br><span class="line">docker container ls --all</span><br><span class="line">docker start [containerID/Names] # 启动容器</span><br><span class="line">docker stop [containerID/Names]  # 停止容器</span><br><span class="line">docker rm [containerID/Names]    # 删除容器</span><br><span class="line">docker logs [containerID/Names]  # 查看日志</span><br><span class="line">docker exec -it [containerID/Names] /bin/bash  # 进入容器</span><br><span class="line"></span><br><span class="line"># 从正在运行的 Docker 容器里面，将文件拷贝到本机，注意后面有个【点】拷贝到当前目录</span><br><span class="line">docker container cp [containID]:[/path/to/file] .</span><br><span class="line"></span><br><span class="line">docker run centos echo &quot;hello world&quot;  # 在docker容器中运行hello world!</span><br><span class="line">docker run centos yum install -y wget # 在docker容器中，安装wget软件</span><br><span class="line">docker ps                             # 列出包括未运行的容器</span><br><span class="line">docker ps -a                          # 查看所有容器(包括正在运行和已停止的)</span><br><span class="line">docker logs my-nginx                  # 查看 my-nginx 容器日志</span><br><span class="line"></span><br><span class="line">docker run -i -t centos /bin/bash     # 启动一个容器</span><br><span class="line">docker inspect centos                 # 检查运行中的镜像</span><br><span class="line">docker commit 8bd centos              # 保存对容器的修改</span><br><span class="line">docker commit -m &quot;n changed&quot; my-nginx my-nginx-image # 使用已经存在的容器创建一个镜像</span><br><span class="line">docker inspect -f &#123;&#123;.State.Pid&#125;&#125; 44fc0f0582d9        # 获取id为 44fc0f0582d9 的PID进程编号</span><br><span class="line"># 下载指定版本容器镜像</span><br><span class="line">docker pull gitlab/gitlab-ce:11.2.3-ce.0</span><br></pre></td></tr></table></figure>
+
+<h5 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">从主机复制到容器 sudo docker cp host_path containerID:container_path</span><br><span class="line">从容器复制到主机 sudo docker cp containerID:container_path host_path</span><br></pre></td></tr></table></figure>
+
+<h5 id="Docker私有仓库搭建"><a href="#Docker私有仓库搭建" class="headerlink" title="Docker私有仓库搭建"></a>Docker私有仓库搭建</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Harbor 还有 humpback 和 rancher</span><br></pre></td></tr></table></figure>
+
+<h5 id="临时运行服务"><a href="#临时运行服务" class="headerlink" title="临时运行服务"></a>临时运行服务</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  -p 5000:5000 \</span><br><span class="line">  --restart=always \</span><br><span class="line">  --name registry \</span><br><span class="line">  registry:2</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line"># ctrl+c退出自动删除容器</span><br><span class="line">docker run --rm \</span><br><span class="line">    --name asynqmon \</span><br><span class="line">    -p 8080:8080 \</span><br><span class="line">    hibiken/asynqmon</span><br><span class="line"></span><br><span class="line"># 自定义存储位置</span><br><span class="line">docker run -d \</span><br><span class="line">  -p 5000:5000 \</span><br><span class="line">  --restart=always \</span><br><span class="line">  --name registry \</span><br><span class="line">  -v $HOME/_docker/registry:/var/lib/registry \</span><br><span class="line">  registry:2</span><br><span class="line"></span><br><span class="line">docker run -d -p 5000:5000 --restart=always --name registry \</span><br><span class="line">    -v `pwd`/config.yml:/etc/docker/registry/config.yml \</span><br><span class="line">    registry:2</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="使用docker实战"><a href="#使用docker实战" class="headerlink" title="使用docker实战"></a>使用docker实战</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">-d, --detach=false      # 指定容器运行于前台还是后台，默认为false   </span><br><span class="line">-i, --interactive=false # 打开STDIN，用于控制台交互  </span><br><span class="line">-t, --tty=false         # 分配tty设备，该可以支持终端登录，默认为false  </span><br><span class="line">-u, --user=&quot;&quot;           # 指定容器的用户  </span><br><span class="line">-a, --attach=[]         # 登录容器（必须是以docker run -d启动的容器）</span><br><span class="line">-w, --workdir=&quot;&quot;        # 指定容器的工作目录 </span><br><span class="line">-c, --cpu-shares=0      # 设置容器CPU权重，在CPU共享场景使用  </span><br><span class="line">-e, --env=[]            # 指定环境变量，容器中可以使用该环境变量  </span><br><span class="line">-m, --memory=&quot;&quot;         # 指定容器的内存上限  </span><br><span class="line">-P, --publish-all=false # 指定容器暴露的端口  </span><br><span class="line">-p, --publish=[]        # 指定容器暴露的端口 </span><br><span class="line">-h, --hostname=&quot;&quot;       # 指定容器的主机名  </span><br><span class="line">-v, --volume=[]         # 给容器挂载存储卷，挂载到容器的某个目录  </span><br><span class="line">--volumes-from=[]       # 给容器挂载其他容器上的卷，挂载到容器的某个目录</span><br><span class="line">--cap-add=[]            # 添加权限，权限清单详见：http://linux.die.net/man/7/capabilities  </span><br><span class="line">--cap-drop=[]           # 删除权限，权限清单详见：http://linux.die.net/man/7/capabilities  </span><br><span class="line">--cidfile=&quot;&quot;            # 运行容器后，在指定文件中写入容器PID值，一种典型的监控系统用法  </span><br><span class="line">--cpuset=&quot;&quot;             # 设置容器可以使用哪些CPU，此参数可以用来容器独占CPU  </span><br><span class="line">--device=[]             # 添加主机设备给容器，相当于设备直通  </span><br><span class="line">--dns=[]                # 指定容器的dns服务器  </span><br><span class="line">--dns-search=[]         # 指定容器的dns搜索域名，写入到容器的/etc/resolv.conf文件  </span><br><span class="line">--entrypoint=&quot;&quot;         # 覆盖image的入口点  </span><br><span class="line">--env-file=[]           # 指定环境变量文件，文件格式为每行一个环境变量  </span><br><span class="line">--expose=[]             # 指定容器暴露的端口，即修改镜像的暴露端口  </span><br><span class="line">--link=[]               # 指定容器间的关联，使用其他容器的IP、env等信息  </span><br><span class="line">--lxc-conf=[]           # 指定容器的配置文件，只有在指定--exec-driver=lxc时使用  </span><br><span class="line">--name=&quot;&quot;               # 指定容器名字，后续可以通过名字进行容器管理，links特性需要使用名字  </span><br><span class="line">--net=&quot;bridge&quot;          # 容器网络设置:</span><br><span class="line">                            # bridge 使用docker daemon指定的网桥     </span><br><span class="line">                            # host 	//容器使用主机的网络  </span><br><span class="line">                            # container:NAME_or_ID  &gt;//使用其他容器的网路，共享IP和PORT等网络资源  </span><br><span class="line">                            # none 容器使用自己的网络（类似--net=bridge），但是不进行配置 </span><br><span class="line">--privileged=false      # 指定容器是否为特权容器，特权容器拥有所有的capabilities  </span><br><span class="line">--restart=&quot;no&quot;          # 指定容器停止后的重启策略:</span><br><span class="line">                            # no：容器退出时不重启  </span><br><span class="line">                            # on-failure：容器故障退出（返回值非零）时重启 </span><br><span class="line">                            # always：容器退出时总是重启  </span><br><span class="line">--rm=false              # 指定容器停止后自动删除容器(不支持以docker run -d启动的容器)  </span><br><span class="line">--sig-proxy=true        # 设置由代理接受并处理信号，但是SIGCHLD、SIGSTOP和SIGKILL不能被代理</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://raw.githack.com/jaywcjlove/docker-tutorial/7a41060/index.html">https://raw.githack.com/jaywcjlove/docker-tutorial/7a41060/index.html</a></p>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第23期：GIT" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC23%E6%9C%9F%EF%BC%9AGIT/">第23期：GIT</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T07:34:40.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC23%E6%9C%9F%EF%BC%9AGIT/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --list # 查看当前配置</span><br><span class="line">git config user.name &quot;username&quot; # 配置当个仓库用户名</span><br><span class="line">git config --global user.name &quot;username&quot; # 设置全局用户名</span><br><span class="line">git config --global user.email  useremail@qq.com # 设置全局邮箱</span><br></pre></td></tr></table></figure>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第22期：rsync" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC22%E6%9C%9F%EF%BC%9Arsync/">第22期：rsync</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T07:19:22.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC22%E6%9C%9F%EF%BC%9Arsync/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h5 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h5><p>remote sync: 远程同步工具，可以说本地复制或主机间复制。第一次复制是全部，第二次是同步有差别的文件。</p>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><p>-a  # 归档模式，文件递归传输<br>-v  # 详细模式输出<br>-z  # 对备份的文件传输时进行压缩</p>
+<h6 id="本地复制"><a href="#本地复制" class="headerlink" title="本地复制"></a>本地复制</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -a remotesync /opt # 把remotesync(包括remotesync)复制到/opt目录下；如果remotesync写成remotesync/，结果是remotesync下面所有文件都被复制到/opt下</span><br></pre></td></tr></table></figure>
+
+<h6 id="本地复制到远程机器"><a href="#本地复制到远程机器" class="headerlink" title="本地复制到远程机器"></a>本地复制到远程机器</h6><p>rsync -avz remotesync <a href="mailto:&#x72;&#x6f;&#x6f;&#116;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#x36;&#x38;&#x2e;&#x33;&#49;&#46;&#49;&#54;&#x36;">&#x72;&#x6f;&#x6f;&#116;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#x36;&#x38;&#x2e;&#x33;&#49;&#46;&#49;&#54;&#x36;</a>:&#x2F;opt&#x2F;test</p>
+<h6 id="远程复制到本机"><a href="#远程复制到本机" class="headerlink" title="远程复制到本机"></a>远程复制到本机</h6><p>rsync -avz <a href="mailto:&#x72;&#x6f;&#111;&#x74;&#x40;&#49;&#x39;&#x32;&#x2e;&#49;&#54;&#x38;&#46;&#x33;&#x31;&#46;&#x31;&#54;&#x36;">&#x72;&#x6f;&#111;&#x74;&#x40;&#49;&#x39;&#x32;&#x2e;&#49;&#54;&#x38;&#46;&#x33;&#x31;&#46;&#x31;&#54;&#x36;</a>:&#x2F;opt&#x2F;test&#x2F;test.log &#x2F;opt</p>
+<p>参考：<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2020/08/rsync.html">http://www.ruanyifeng.com/blog/2020/08/rsync.html</a></p>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第21期：正则表达式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC21%E6%9C%9F%EF%BC%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">第21期：正则表达式</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T06:46:28.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC21%E6%9C%9F%EF%BC%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h5 id="非获取捕获"><a href="#非获取捕获" class="headerlink" title="非获取捕获"></a>非获取捕获</h5><p>场景：你想截取以str1字符串开头的内容，就可以用到非获取捕获</p>
+<pre><code>e.g.1
+[root@ricky ~]# echo &quot;recmaintarget.js123&quot;|grep -o -P &#39;(?&lt;=rec).*js&#39; 
+maintarget.js
+
+e.g.2
+[root@ricky ~]# echo &quot;recmaintarget.jstt&quot;|grep -o -P &#39;(?&lt;=rec).*(?=tt)&#39; 
+maintarget.js
+</code></pre>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第20期：Jenkins" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC20%E6%9C%9F%EF%BC%9AJenkins/">第20期：Jenkins</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T06:38:13.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC20%E6%9C%9F%EF%BC%9AJenkins/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="Jenkins简介"><a href="#Jenkins简介" class="headerlink" title="Jenkins简介"></a>Jenkins简介</h4><p>开源的基于Java的提供可持续化集成服务的平台</p>
+<h4 id="install-jenkins-on-centos7"><a href="#install-jenkins-on-centos7" class="headerlink" title="install jenkins on centos7"></a>install jenkins on centos7</h4><p>java11安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install java-11-openjdk-devel</span><br></pre></td></tr></table></figure>
+<p>说明：使用jdk8可能启动不了jenkins</p>
+<p>添加安装Jenkins的yum源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo</span><br></pre></td></tr></table></figure>
+
+<p>导入仓库密钥</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key</span><br></pre></td></tr></table></figure>
+
+<p>安装jenkins最新稳定版</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install jenkins</span><br></pre></td></tr></table></figure>
+
+<p>服务管理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start jenkins</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>越新版本的jenkins可能需要的jdk版本越高，jdk11适配jdk8却不一定</li>
+</ul>
+<p>开放8080端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=public --add-port=8080/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>设置Jenkins</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://your_ip_or_domain:8080</span><br><span class="line">sudo cat /var/lib/jenkins/secrets/initialAdminPassword # 获取临时密码</span><br></pre></td></tr></table></figure>
+
+<p>选择<code>Install suggested plugins box</code>后继续，创建admin用户。</p>
+<p>jenkins工作目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/var/lib/jenkins/</span><br><span class="line">/var/lib/jenkins/config.xml # 配置文件</span><br></pre></td></tr></table></figure>
+<h4 id="jenkins重置密码"><a href="#jenkins重置密码" class="headerlink" title="jenkins重置密码"></a>jenkins重置密码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">编辑/var/lib/jenkins/users/admin_491010919283058211/config.xml  # admin_491010919283058211需要根据你的实际文件名调整</span><br><span class="line"></span><br><span class="line"># 替换&lt;passwordHash&gt;成下列内容：</span><br><span class="line">&lt;passwordHash&gt;#jbcrypt:$2a$10$ltzg1Kwtef0ymmNAqR8JR.961lHdnrsoFsE.huZ.G4r1AiIaENRC6&lt;/passwordHash&gt;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><code>#jbcrypt:$2a$10$ltzg1Kwtef0ymmNAqR8JR.961lHdnrsoFsE.huZ.G4r1AiIaENRC6</code>是hash加密<code>123456</code>后的值。</li>
+</ul>
+<h4 id="部署java项目实践"><a href="#部署java项目实践" class="headerlink" title="部署java项目实践"></a>部署java项目实践</h4><p>配置JDK</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Manage Jenkins - Global Tool Configuration - JDK（不选择自动安装）- 配置name和JAVA_HOME为`/usr/local/java/jdk1.8.0_351` - 保存</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>若选择自动安装需要设置oracle账号密码</li>
+<li>手动安装jdk8步骤<br>mkdir &#x2F;usr&#x2F;local&#x2F;java<br>tar -xzvf jdk-8u351-linux-x64.tar.gz (jdk-8u351-linux-x64.tar.gz包自行到java官网下载)，解压后生成目录<code>jdk1.8.0_351</code></li>
+</ul>
+<p>配置MAVEN</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Add Maven - 命名 - Install Automatically - 选择版本3.8.6 - 保存</span><br></pre></td></tr></table></figure>
+
+<p>安装插件 Maven Integration，具体步骤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Manage Jenkins - Manage Plugins - 可选插件 - 搜索maven - 安装Maven Integration</span><br></pre></td></tr></table></figure>
+
+<p>安装完后，创建一个项目：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new Item - 命名emog-test - 选择构建一个maven项目 - 保存</span><br></pre></td></tr></table></figure>
+
+<p>进入project：emog-test</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">点击配置 - 设置git：git@192.168.31.87:alias/emog.git</span><br></pre></td></tr></table></figure>
+
+<p>Pre Steps<br>选择<code>执行shell</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install</span><br><span class="line"></span><br><span class="line">num=`ls target/emog*.jar | wc -l`</span><br><span class="line"></span><br><span class="line">[[ $num -ne 1 ]] &amp;&amp; &#123; echo &quot;num is not equal 1&quot;; exit 1; &#125;</span><br><span class="line">echo &quot;continue&quot;</span><br><span class="line">jar_path=`ls target/emog*.jar`</span><br><span class="line">jar=`basename &quot;$jar_path&quot;`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">\cp -fp target/$jar /opt/emog/jar</span><br><span class="line">\cp -fp /opt/emog/jar/$jar /opt/emog/emog.jar</span><br><span class="line"></span><br><span class="line">cd /opt/emog &amp;&amp; sh restart.sh</span><br></pre></td></tr></table></figure>
+<p>说明：restart.sh内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">workspace=/opt/emog</span><br><span class="line">cd $workspace</span><br><span class="line">pid=`ps aux|grep &quot;java -jar emog.jar&quot;|grep -v grep|awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line"></span><br><span class="line">if [[ $pid ]];then</span><br><span class="line">  kill $pid &amp;&amp; nohup java -jar emog.jar &amp;</span><br><span class="line">else</span><br><span class="line">  nohup java -jar emog.jar &amp;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>说明：<code>su jenkins</code>非登录用户没有bash环境，可以使用<code>su -s /bin/bash jenkins</code>以jenkin身份进入。</p>
+<h3 id="设置邮件模板"><a href="#设置邮件模板" class="headerlink" title="设置邮件模板"></a>设置邮件模板</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;hr/&gt;</span><br><span class="line">     Project：$PROJECT_NAME&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line"></span><br><span class="line">     No.：#$BUILD_NUMBER&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line"></span><br><span class="line">     GIT：$&#123;GIT_REVISION&#125;&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line"></span><br><span class="line">     Status：$BUILD_STATUS&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line"></span><br><span class="line">     User：$&#123;CAUSE&#125;&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line"></span><br><span class="line">     Console：&lt;a href=&quot;$BUILD_URL&quot;&gt;$BUILD_URL&lt;/a&gt;&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line"></span><br><span class="line">     Console Logs：&lt;a href=&quot;$&#123;BUILD_URL&#125;console&quot;&gt;$&#123;BUILD_URL&#125;console&lt;/a&gt;&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line"></span><br><span class="line">     $&#123;JELLY_SCRIPT,template=&quot;html&quot;&#125;&lt;br/&gt;&lt;hr/&gt;</span><br></pre></td></tr></table></figure>
+
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第19期：Mysql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC19%E6%9C%9F%EF%BC%9AMysql/">第19期：Mysql</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T04:40:52.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC19%E6%9C%9F%EF%BC%9AMysql/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h4><p>mysql -h127.0.0.1 -P3306 -uroot -prootpassword</p>
+<h4 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h4><p>show databases;</p>
+<h4 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h4><p>use test;</p>
+<h3 id="表结构系列操作"><a href="#表结构系列操作" class="headerlink" title="表结构系列操作"></a>表结构系列操作</h3><h4 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h4><p>ALTER TABLE user<br>ADD age int(3); </p>
+<h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><p>CREATE INDEX idx_name<br>ON user (name);</p>
+<h3 id="数据系列操作"><a href="#数据系列操作" class="headerlink" title="数据系列操作"></a>数据系列操作</h3><h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><p>INSERT INTO user<br>VALUES (10, ‘root’, ‘root’, ‘<a href="mailto:&#120;&#120;&#120;&#x78;&#x40;&#49;&#x36;&#51;&#x2e;&#99;&#x6f;&#x6d;">&#120;&#120;&#120;&#x78;&#x40;&#49;&#x36;&#51;&#x2e;&#99;&#x6f;&#x6d;</a>‘);</p>
+<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>UPDATE user<br>SET username&#x3D;’robot’, password&#x3D;’robot’<br>WHERE username &#x3D; ‘root’;</p>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>DELETE FROM user<br>WHERE username &#x3D; ‘robot’; &#x2F;&#x2F; 删除行</p>
+<p>TRUNCATE TABLE user; &#x2F;&#x2F; 清空表</p>
+<h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><p>SELECT * FROM mytable LIMIT 0, 5;</p>
+<h3 id="MySQL-主从复制原理"><a href="#MySQL-主从复制原理" class="headerlink" title="MySQL 主从复制原理"></a>MySQL 主从复制原理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql主从复制可以实现负载，读写分离，master主要负责写，node负责读。</span><br><span class="line"></span><br><span class="line">主从复制类型：</span><br><span class="line">- 主从同步：master和node都写完才通知用户</span><br><span class="line">- 主从异步：master一写完就通知用户</span><br><span class="line">- 主从半同步：master和任一个node写完就通知用户</span><br><span class="line"></span><br><span class="line">主从复制原理：</span><br><span class="line">- master需开启了二进制日志跟踪，node服务器通知master：我现在读到了最新的更新位置，然后封锁继续等待master更新通知。</span><br><span class="line"></span><br><span class="line">主从复制具体过程：</span><br><span class="line">1/ node启动2个线程，一个IO，另一个sql线程；</span><br><span class="line">2/ IO线程去请求master的binlog日志，且将binlog写到redo log(中继日志)；master特地开了一个log dump进程传输binlog。</span><br><span class="line">3/ node的sql进程用来读redo log，解析成insert等具体操作执行。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Mysql主备搭建"><a href="#Mysql主备搭建" class="headerlink" title="Mysql主备搭建"></a>Mysql主备搭建</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">mkdir /soft &amp;&amp; mkdir /soft/mysql/</span><br><span class="line">cd /soft/mysql/</span><br><span class="line"></span><br><span class="line">wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz</span><br><span class="line"></span><br><span class="line">tar -xvJf mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz</span><br><span class="line">mv mysql-8.0.20-linux-glibc2.12-x86_64 mysql8.0</span><br><span class="line"></span><br><span class="line"># 卸载内核自带maridb</span><br><span class="line">rpm -qa | grep mariadb</span><br><span class="line">rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64</span><br><span class="line"></span><br><span class="line">cd mysql8.0 &amp;&amp; mkdir data</span><br><span class="line"></span><br><span class="line"># 配置环境变量</span><br><span class="line">vi /etc/profile</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:/soft/mysql/mysql8.0/bin:/soft/mysql/mysql8.0/lib</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line"># 创建用户和用户组</span><br><span class="line">groupadd mysql</span><br><span class="line">useradd -g mysql mysql</span><br><span class="line">chown -R mysql.mysql /soft/mysql/mysql8.0</span><br><span class="line"></span><br><span class="line"># 初始化mysql并获临时密码</span><br><span class="line">cd /soft/mysql/mysql8.0/bin</span><br><span class="line">./mysqld --user=mysql --basedir=/soft/mysql/mysql8.0 --datadir=/soft/mysql/mysql8.0/data/ --initialize</span><br><span class="line"></span><br><span class="line"># mysql启动默认读取/etc/my.cnf</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">basedir=/soft/mysql/mysql8.0</span><br><span class="line">datadir=/soft/mysql/mysql8.0/data</span><br><span class="line"></span><br><span class="line">port=3306</span><br><span class="line">socket=/tmp/mysql.sock</span><br><span class="line">character-set-server=UTF8MB4</span><br><span class="line"></span><br><span class="line"># 编辑启动模板</span><br><span class="line">cd /soft/mysql/mysql8.0</span><br><span class="line">vi support-files/mysql.server</span><br><span class="line"></span><br><span class="line">basedir=</span><br><span class="line">datadir=</span><br><span class="line">  </span><br><span class="line">  替换成：</span><br><span class="line"></span><br><span class="line">basedir=/soft/mysql/mysql8.0</span><br><span class="line">datadir=/soft/mysql/mysql8.0/data</span><br><span class="line"></span><br><span class="line"># 通过启动脚本启动服务</span><br><span class="line">[root@localhost]# ./support-files/mysql.server start</span><br><span class="line">Starting MySQL.Logging to &#x27;/soft/mysql/mysql8.0/data/localhost.localdomain.err&#x27;.</span><br><span class="line">.. SUCCESS!</span><br><span class="line"></span><br><span class="line"># 查看进程</span><br><span class="line">ps aux | grep mysql</span><br><span class="line"></span><br><span class="line"># 临时密码登录并修改密码</span><br><span class="line">mysql -uroot -p</span><br><span class="line"></span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">ERROR 1820 (HY000): You must reset your password using ALTER USER ...</span><br><span class="line"></span><br><span class="line">alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified with mysql_native_password by &#x27;123456&#x27;;</span><br><span class="line"></span><br><span class="line"># 自制mysql启动服务</span><br><span class="line">./support-files/mysql.server stop</span><br><span class="line"></span><br><span class="line">cp -a ./support-files/mysql.server /etc/init.d/mysql</span><br><span class="line"></span><br><span class="line">chmod +x /etc/init.d/mysql</span><br><span class="line"></span><br><span class="line"># 通过系统etc目录下的启动文件创建系统服务</span><br><span class="line">[root@localhost]# chkconfig --add mysql</span><br><span class="line"></span><br><span class="line">service mysql status</span><br><span class="line"></span><br><span class="line"># 设置能远程root连接</span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line"></span><br><span class="line"># 直接通过update修改系统用户表</span><br><span class="line">mysql&gt; update user set host=&quot;%&quot; where user=&quot;root&quot;;</span><br><span class="line"></span><br><span class="line"># 刷新一下所有用户的权限信息</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">change master to master_host=&#x27;192.168.31.87&#x27;,</span><br><span class="line">       master_user=&#x27;ricky&#x27;,</span><br><span class="line">       master_password=&#x27;123456&#x27;,</span><br><span class="line">       master_port=3306,</span><br><span class="line">       master_log_file=&#x27;mysql-bin-log.000005&#x27;,</span><br><span class="line">       master_log_pos=3339;</span><br><span class="line"></span><br><span class="line"># 创建用户，@指明任意客户端可登录</span><br><span class="line">create user &#x27;ricky&#x27;@&#x27;%&#x27; identified with mysql_native_password by &#x27;123456&#x27;;</span><br></pre></td></tr></table></figure>
+<h3 id="会话连接"><a href="#会话连接" class="headerlink" title="会话连接"></a>会话连接</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查看客户端连接状态，客户端如果太长时间没动静，连接器就会自动将它断开。这个时间是由参数 wait_timeout 控制的，默认值是 8 小时。</span><br><span class="line">show processlist;</span><br></pre></td></tr></table></figure>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GRANT SELECT, INSERT ON test.user TO &#x27;pig&#x27;@&#x27;%&#x27;;</span><br><span class="line">GRANT ALL ON *.* TO &#x27;pig&#x27;@&#x27;%&#x27;;</span><br><span class="line">GRANT ALL ON maindataplus.* TO &#x27;pig&#x27;@&#x27;%&#x27;;</span><br><span class="line"></span><br><span class="line"># 让用户可以授权</span><br><span class="line">GRANT privileges ON databasename.tablename TO &#x27;username&#x27;@&#x27;host&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line"># 撤销授权</span><br><span class="line">REVOKE privilege ON databasename.tablename FROM &#x27;username&#x27;@&#x27;host&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改用户密码"><a href="#更改用户密码" class="headerlink" title="更改用户密码"></a>更改用户密码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR &#x27;username&#x27;@&#x27;host&#x27; = PASSWORD(&#x27;newpassword&#x27;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysqldump 将数据库中的数据备份成一个文本文件，表的结构和表中的数据将存储在生成的文本文件中。</span><br><span class="line"></span><br><span class="line"># 备份</span><br><span class="line">mysqldump -u &lt;username&gt; -p &lt;database&gt; [&lt;table1&gt; &lt;table2&gt; ...] &gt; backup.sql</span><br><span class="line"></span><br><span class="line"># 恢复</span><br><span class="line">mysql -u &lt;username&gt; -p &lt;database&gt; &lt; backup.sql</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://juejin.cn/post/6844904021497479176</span><br></pre></td></tr></table></figure>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第18期：linux性能" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC18%E6%9C%9F%EF%BC%9Alinux%E6%80%A7%E8%83%BD/">第18期：linux性能</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T02:15:30.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC18%E6%9C%9F%EF%BC%9Alinux%E6%80%A7%E8%83%BD/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h5 id="一、什么是性能问题？"><a href="#一、什么是性能问题？" class="headerlink" title="一、什么是性能问题？"></a>一、什么是性能问题？</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">突然有一天，公司开发在夜里打电话给你，“现在有很多用户说系统弹出一个错误，系统繁忙”之类的。</span><br><span class="line">开发同事一看接口返回500，看了后端日志好像没有特别明显的报错信息。</span><br><span class="line"></span><br><span class="line">这时，你赶忙上服务器看下nginx日志，好家伙，一看nginx日志发现后发现接口请求过了60s还没有响应。</span><br><span class="line">`top`看一下服务器资源，用户空间的cpu使用率100%，是哪些进程呢？php-fpm。里面发生了什么？我不知道啊？</span><br><span class="line">唉，重启服务能解决90%的问题，那就重启看看吧。果然，重启后用户反馈正常了。害，暂时是没有问题了，那下次再来一次怎么办？...无后续</span><br></pre></td></tr></table></figure>
+
+<p>看，cpu100%这类问题就归属性能问题。</p>
+<h5 id="研究性能问题需要学习操作系统主要组件原理"><a href="#研究性能问题需要学习操作系统主要组件原理" class="headerlink" title="研究性能问题需要学习操作系统主要组件原理"></a>研究性能问题需要学习操作系统主要组件原理</h5><p>CPU性能、内存、磁盘IO性能、网络</p>
+<p>衡量性能的指标：<br>并发（吞吐）、响应快（时延）</p>
+<h5 id="二、CPU性能篇"><a href="#二、CPU性能篇" class="headerlink" title="二、CPU性能篇"></a>二、CPU性能篇</h5><h5 id="什么是平均负载"><a href="#什么是平均负载" class="headerlink" title="什么是平均负载"></a>什么是平均负载</h5><p>看一个例子：<code>uptime</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ uptime</span><br><span class="line">02:34:03 up 2 days, 20:14,  1 user,  load average: 0.63, 0.83, 0.88</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><code>02:34:03</code> 当前时间</li>
+<li><code>up 2 days, 20:14</code> 系统从开机后运行的时长</li>
+<li><code>1 user</code> 正在登录的用户数</li>
+<li><code>load average: 0.63, 0.83, 0.88</code> 最近1分钟、5分钟、15分钟的平均负载(Load average)</li>
+</ul>
+<p><code>平均负载</code>是指单位时间内，系统处于可运行(Running或ready)和不可中断(blocked)的进程数。结合最近1分钟、5分钟、15分钟的平均负载，我们可以全面了解cpu的使用情况。像了解一天早中晚的气候变化。</p>
+<p>Running是指正在使用cpu；Ready是指代码(指令)已经加载到了内存，等cpu来执行指令；</p>
+<p>不可中断是指进程在使用cpu，突然需要进行磁盘IO(读写)的长时间操作，先不用cpu，等IO操作完毕再回来使用cpu。</p>
+<p>一般而言，平均负载超过cpu核数70%就要检查cpu的使用情况，考虑是否优化。</p>
+<p>查看cpu核数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &#x27;model name&#x27; /proc/cpuinfo|wc -l</span><br></pre></td></tr></table></figure>
+
+<h5 id="什么是CPU使用率"><a href="#什么是CPU使用率" class="headerlink" title="什么是CPU使用率"></a>什么是CPU使用率</h5><p>cpu使用率衡量了单位时间cpu的繁忙程度。</p>
+<p>对于I&#x2F;O密集型进程，平均负载就高，但cpu却不繁忙，也就是cpu使用率不高。</p>
+<p>看一个例子：<code>top</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ top</span><br><span class="line">top - 11:15:27 up 40 days, 51 min,  1 user,  load average: 0.32, 0.27, 0.26</span><br><span class="line">Tasks: 356 total,   1 running, 355 sleeping,   0 stopped,   0 zombie</span><br><span class="line">%Cpu(s):  4.2 us,  5.6 sy,  0.0 ni, 90.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">MiB Mem :   7777.8 total,    281.6 free,   4394.8 used,   3101.3 buff/cache</span><br><span class="line">MiB Swap:   2048.0 total,    580.2 free,   1467.8 used.   3015.1 avail Mem </span><br><span class="line"></span><br><span class="line">    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                                                                                 </span><br><span class="line">3811294 root      20   0   15440   4540   3768 R  20.0   0.1   0:00.03 top                                                                                                                     </span><br><span class="line">    682 avahi     20   0   10524   5696   3120 S   6.7   0.1 110:29.16 avahi-daemon                                                                                                            </span><br><span class="line">   7726 root      20   0  750872  21192   5772 S   6.7   0.3 259:56.50 travel-api  </span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><p><code>%Cpu(s)</code> 比如说有4个cpu，%Cpu(s)代表这4个的平均使用率。</p>
+<p>cpu &#x3D; 用户空间使用率(us) + 内核空间使用率(sy) + 空闲(id)</p>
+<p><code>ni</code> 用户空间通过改变进程优先级占用的cpu百分比</p>
+<p><code>wa</code> 等待io操作占用的cpu百分比</p>
+<p><code>hi/si</code> 硬&#x2F;软中断进行cpu上下文切换占用的百分比</p>
+</li>
+<li><p><code>RES</code> 使用的真实物理内存（KB）</p>
+</li>
+<li><p><code>%CPU</code> 一个cpu的使用率，毕竟一个进程只占用一个cpu</p>
+</li>
+<li><p><code>TIME+</code> 累计使用cpu时间</p>
+</li>
+</ul>
+<p>附top使用快捷键说明：</p>
+<ul>
+<li><code>shift + m</code> # 按照内存使用率排序，shift m 等价于大写M</li>
+<li><code>shift + p</code> # 按照cpu使用率排序</li>
+<li><code>c</code> # 显示命令全路径</li>
+<li><code>F</code> # 挑选你要选择展示的列，按下空格选中，* 代表会展示的列(列会出现在最后)，按q退出。<br>  可以展示进程使用哪一个cpu</li>
+<li>按<code>1</code> # 展示每个cpu的使用情况</li>
+</ul>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第17期：ssh" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC17%E6%9C%9F%EF%BC%9Assh/">第17期：ssh</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T02:14:20.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC17%E6%9C%9F%EF%BC%9Assh/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="SSH-远程连接工具"><a href="#SSH-远程连接工具" class="headerlink" title="SSH-远程连接工具"></a>SSH-远程连接工具</h4><pre><code>ssh root@192.168.1.2 -p 22
+ssh-keygen # 生成`id_rsa.pub`和 `id_rsa.private`
+/etc/ssh/sshd_config # 配置文件入口，可以修改端口等
+systemctl status sshd # 服务管理
+</code></pre>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-第16期：grep" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/22/%E7%AC%AC16%E6%9C%9F%EF%BC%9Agrep/">第16期：grep</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T02:12:57.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+      
+<a href="/2023/05/22/%E7%AC%AC16%E6%9C%9F%EF%BC%9Agrep/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>例子：grep</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">grep &quot;ricky&quot; test.log   # 只取选中的字符所在行</span><br><span class="line">grep -v &quot;ricky&quot; test.log  # 取不选中的行</span><br><span class="line">grep -r &quot;ricky&quot; ./*   # 递归查找当前目录及子目录下的ricky</span><br><span class="line">grep -e &quot;rick*&quot; test.log  # 开启正则匹配模式</span><br><span class="line">grep -w &#x27;ricky&#x27; txt                          # 精确匹配字符串，-w只会匹配单独存在的ricky，如文本里存在arickya不会被匹配到，但a ricky a 会</span><br></pre></td></tr></table></figure>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/page/3/index.html">https://chenqiaorui.github.io/page/3/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+
+    <nav id="page-nav">
+
+<a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+</nav>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/06/%E7%AC%AC45%E6%9C%9F%EF%BC%9A%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AD%96%E7%95%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/06/%E7%AC%AC44%E6%9C%9F%EF%BC%9A%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC43%E6%9C%9F%EF%BC%9Arabbitmq/">第43期：rabbitmq</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC42%E6%9C%9F%EF%BC%9Axargs/">第42期：xargs</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC41%E6%9C%9F%EF%BC%9Ased/">第41期：sed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">43</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    <!-- 
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+ -->
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 Ricky Chen.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+
+
+</body>
+</html>

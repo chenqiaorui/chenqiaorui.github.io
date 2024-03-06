@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>第19期：Mysql | Emog-LOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Emog-LOL" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Emog-LOL</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-第19期：Mysql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      第19期：Mysql
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-22T04:40:52.000Z" itemprop="datePublished">2023年05月22日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2023/05/22/%E7%AC%AC19%E6%9C%9F%EF%BC%9AMysql/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h4><p>mysql -h127.0.0.1 -P3306 -uroot -prootpassword</p>
+<h4 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h4><p>show databases;</p>
+<h4 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h4><p>use test;</p>
+<h3 id="表结构系列操作"><a href="#表结构系列操作" class="headerlink" title="表结构系列操作"></a>表结构系列操作</h3><h4 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h4><p>ALTER TABLE user<br>ADD age int(3); </p>
+<h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><p>CREATE INDEX idx_name<br>ON user (name);</p>
+<h3 id="数据系列操作"><a href="#数据系列操作" class="headerlink" title="数据系列操作"></a>数据系列操作</h3><h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><p>INSERT INTO user<br>VALUES (10, ‘root’, ‘root’, ‘<a href="mailto:&#120;&#120;&#120;&#x78;&#x40;&#49;&#x36;&#51;&#x2e;&#99;&#x6f;&#x6d;">&#120;&#120;&#120;&#x78;&#x40;&#49;&#x36;&#51;&#x2e;&#99;&#x6f;&#x6d;</a>‘);</p>
+<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>UPDATE user<br>SET username&#x3D;’robot’, password&#x3D;’robot’<br>WHERE username &#x3D; ‘root’;</p>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>DELETE FROM user<br>WHERE username &#x3D; ‘robot’; &#x2F;&#x2F; 删除行</p>
+<p>TRUNCATE TABLE user; &#x2F;&#x2F; 清空表</p>
+<h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><p>SELECT * FROM mytable LIMIT 0, 5;</p>
+<h3 id="MySQL-主从复制原理"><a href="#MySQL-主从复制原理" class="headerlink" title="MySQL 主从复制原理"></a>MySQL 主从复制原理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql主从复制可以实现负载，读写分离，master主要负责写，node负责读。</span><br><span class="line"></span><br><span class="line">主从复制类型：</span><br><span class="line">- 主从同步：master和node都写完才通知用户</span><br><span class="line">- 主从异步：master一写完就通知用户</span><br><span class="line">- 主从半同步：master和任一个node写完就通知用户</span><br><span class="line"></span><br><span class="line">主从复制原理：</span><br><span class="line">- master需开启了二进制日志跟踪，node服务器通知master：我现在读到了最新的更新位置，然后封锁继续等待master更新通知。</span><br><span class="line"></span><br><span class="line">主从复制具体过程：</span><br><span class="line">1/ node启动2个线程，一个IO，另一个sql线程；</span><br><span class="line">2/ IO线程去请求master的binlog日志，且将binlog写到redo log(中继日志)；master特地开了一个log dump进程传输binlog。</span><br><span class="line">3/ node的sql进程用来读redo log，解析成insert等具体操作执行。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Mysql主备搭建"><a href="#Mysql主备搭建" class="headerlink" title="Mysql主备搭建"></a>Mysql主备搭建</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">mkdir /soft &amp;&amp; mkdir /soft/mysql/</span><br><span class="line">cd /soft/mysql/</span><br><span class="line"></span><br><span class="line">wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz</span><br><span class="line"></span><br><span class="line">tar -xvJf mysql-8.0.20-linux-glibc2.12-x86_64.tar.xz</span><br><span class="line">mv mysql-8.0.20-linux-glibc2.12-x86_64 mysql8.0</span><br><span class="line"></span><br><span class="line"># 卸载内核自带maridb</span><br><span class="line">rpm -qa | grep mariadb</span><br><span class="line">rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64</span><br><span class="line"></span><br><span class="line">cd mysql8.0 &amp;&amp; mkdir data</span><br><span class="line"></span><br><span class="line"># 配置环境变量</span><br><span class="line">vi /etc/profile</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:/soft/mysql/mysql8.0/bin:/soft/mysql/mysql8.0/lib</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line"># 创建用户和用户组</span><br><span class="line">groupadd mysql</span><br><span class="line">useradd -g mysql mysql</span><br><span class="line">chown -R mysql.mysql /soft/mysql/mysql8.0</span><br><span class="line"></span><br><span class="line"># 初始化mysql并获临时密码</span><br><span class="line">cd /soft/mysql/mysql8.0/bin</span><br><span class="line">./mysqld --user=mysql --basedir=/soft/mysql/mysql8.0 --datadir=/soft/mysql/mysql8.0/data/ --initialize</span><br><span class="line"></span><br><span class="line"># mysql启动默认读取/etc/my.cnf</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">basedir=/soft/mysql/mysql8.0</span><br><span class="line">datadir=/soft/mysql/mysql8.0/data</span><br><span class="line"></span><br><span class="line">port=3306</span><br><span class="line">socket=/tmp/mysql.sock</span><br><span class="line">character-set-server=UTF8MB4</span><br><span class="line"></span><br><span class="line"># 编辑启动模板</span><br><span class="line">cd /soft/mysql/mysql8.0</span><br><span class="line">vi support-files/mysql.server</span><br><span class="line"></span><br><span class="line">basedir=</span><br><span class="line">datadir=</span><br><span class="line">  </span><br><span class="line">  替换成：</span><br><span class="line"></span><br><span class="line">basedir=/soft/mysql/mysql8.0</span><br><span class="line">datadir=/soft/mysql/mysql8.0/data</span><br><span class="line"></span><br><span class="line"># 通过启动脚本启动服务</span><br><span class="line">[root@localhost]# ./support-files/mysql.server start</span><br><span class="line">Starting MySQL.Logging to &#x27;/soft/mysql/mysql8.0/data/localhost.localdomain.err&#x27;.</span><br><span class="line">.. SUCCESS!</span><br><span class="line"></span><br><span class="line"># 查看进程</span><br><span class="line">ps aux | grep mysql</span><br><span class="line"></span><br><span class="line"># 临时密码登录并修改密码</span><br><span class="line">mysql -uroot -p</span><br><span class="line"></span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">ERROR 1820 (HY000): You must reset your password using ALTER USER ...</span><br><span class="line"></span><br><span class="line">alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified with mysql_native_password by &#x27;123456&#x27;;</span><br><span class="line"></span><br><span class="line"># 自制mysql启动服务</span><br><span class="line">./support-files/mysql.server stop</span><br><span class="line"></span><br><span class="line">cp -a ./support-files/mysql.server /etc/init.d/mysql</span><br><span class="line"></span><br><span class="line">chmod +x /etc/init.d/mysql</span><br><span class="line"></span><br><span class="line"># 通过系统etc目录下的启动文件创建系统服务</span><br><span class="line">[root@localhost]# chkconfig --add mysql</span><br><span class="line"></span><br><span class="line">service mysql status</span><br><span class="line"></span><br><span class="line"># 设置能远程root连接</span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line"></span><br><span class="line"># 直接通过update修改系统用户表</span><br><span class="line">mysql&gt; update user set host=&quot;%&quot; where user=&quot;root&quot;;</span><br><span class="line"></span><br><span class="line"># 刷新一下所有用户的权限信息</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">change master to master_host=&#x27;192.168.31.87&#x27;,</span><br><span class="line">       master_user=&#x27;ricky&#x27;,</span><br><span class="line">       master_password=&#x27;123456&#x27;,</span><br><span class="line">       master_port=3306,</span><br><span class="line">       master_log_file=&#x27;mysql-bin-log.000005&#x27;,</span><br><span class="line">       master_log_pos=3339;</span><br><span class="line"></span><br><span class="line"># 创建用户，@指明任意客户端可登录</span><br><span class="line">create user &#x27;ricky&#x27;@&#x27;%&#x27; identified with mysql_native_password by &#x27;123456&#x27;;</span><br></pre></td></tr></table></figure>
+<h3 id="会话连接"><a href="#会话连接" class="headerlink" title="会话连接"></a>会话连接</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查看客户端连接状态，客户端如果太长时间没动静，连接器就会自动将它断开。这个时间是由参数 wait_timeout 控制的，默认值是 8 小时。</span><br><span class="line">show processlist;</span><br></pre></td></tr></table></figure>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GRANT SELECT, INSERT ON test.user TO &#x27;pig&#x27;@&#x27;%&#x27;;</span><br><span class="line">GRANT ALL ON *.* TO &#x27;pig&#x27;@&#x27;%&#x27;;</span><br><span class="line">GRANT ALL ON maindataplus.* TO &#x27;pig&#x27;@&#x27;%&#x27;;</span><br><span class="line"></span><br><span class="line"># 让用户可以授权</span><br><span class="line">GRANT privileges ON databasename.tablename TO &#x27;username&#x27;@&#x27;host&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line"># 撤销授权</span><br><span class="line">REVOKE privilege ON databasename.tablename FROM &#x27;username&#x27;@&#x27;host&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改用户密码"><a href="#更改用户密码" class="headerlink" title="更改用户密码"></a>更改用户密码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR &#x27;username&#x27;@&#x27;host&#x27; = PASSWORD(&#x27;newpassword&#x27;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysqldump 将数据库中的数据备份成一个文本文件，表的结构和表中的数据将存储在生成的文本文件中。</span><br><span class="line"></span><br><span class="line"># 备份</span><br><span class="line">mysqldump -u &lt;username&gt; -p &lt;database&gt; [&lt;table1&gt; &lt;table2&gt; ...] &gt; backup.sql</span><br><span class="line"></span><br><span class="line"># 恢复</span><br><span class="line">mysql -u &lt;username&gt; -p &lt;database&gt; &lt; backup.sql</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://juejin.cn/post/6844904021497479176</span><br></pre></td></tr></table></figure>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">连接数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">查看数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">选择数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E7%BB%93%E6%9E%84%E7%B3%BB%E5%88%97%E6%93%8D%E4%BD%9C"><span class="toc-text">表结构系列操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%AE%B5"><span class="toc-text">添加字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="toc-text">创建索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B3%BB%E5%88%97%E6%93%8D%E4%BD%9C"><span class="toc-text">数据系列操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-text">插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0"><span class="toc-text">更新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-text">删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2"><span class="toc-text">查询</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86"><span class="toc-text">MySQL 主从复制原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mysql%E4%B8%BB%E5%A4%87%E6%90%AD%E5%BB%BA"><span class="toc-text">Mysql主备搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%9A%E8%AF%9D%E8%BF%9E%E6%8E%A5"><span class="toc-text">会话连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%88%E6%9D%83"><span class="toc-text">授权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81"><span class="toc-text">更改用户密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-text">备份与恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/2023/05/22/第19期：Mysql/">https://chenqiaorui.github.io/2023/05/22/第19期：Mysql/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2023/05/22/%E7%AC%AC18%E6%9C%9F%EF%BC%9Alinux%E6%80%A7%E8%83%BD/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          第18期：linux性能
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/22/%E7%AC%AC20%E6%9C%9F%EF%BC%9AJenkins/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          第20期：Jenkins
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/06/%E7%AC%AC45%E6%9C%9F%EF%BC%9A%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AD%96%E7%95%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/06/%E7%AC%AC44%E6%9C%9F%EF%BC%9A%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC43%E6%9C%9F%EF%BC%9Arabbitmq/">第43期：rabbitmq</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC42%E6%9C%9F%EF%BC%9Axargs/">第42期：xargs</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC41%E6%9C%9F%EF%BC%9Ased/">第41期：sed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">43</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    <!-- 
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+ -->
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 Ricky Chen.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

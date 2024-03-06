@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>第38期：linux日志切割 | Emog-LOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Emog-LOL" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Emog-LOL</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-第38期：linux日志切割" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      第38期：linux日志切割
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-25T04:30:10.000Z" itemprop="datePublished">2023年05月25日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2023/05/25/%E7%AC%AC38%E6%9C%9F%EF%BC%9Alinux%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="一、日志切割"><a href="#一、日志切割" class="headerlink" title="一、日志切割"></a>一、日志切割</h4><p>背景：流量大的服务常常会产生很多大文件日志文件，占用磁盘空间，怎么去管理呢？使用日志切割服务logrotate。</p>
+<p>logrotate可以对日志进行截断、压缩、删除旧文件。比如说配置logrotate，让&#x2F;var&#x2F;log&#x2F;nginx每30天轮询，并删除超过60天的日志，此过程完全自动化。</p>
+<p>安装logrotate，centos7默认自带</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install logrotate</span><br></pre></td></tr></table></figure>
+
+<h5 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h5><p>logrotate的运行依赖<code>crontab</code>, 安装logrotate后, 自动在 &#x2F;etc&#x2F;cron.daily 目录下添加<br>logrotate 文件</p>
+<p>说明：</p>
+<ul>
+<li>配置文件：&#x2F;etc&#x2F;logrotate.conf，一般不变动</li>
+<li>设置独立的轮询配置文件，&#x2F;etc&#x2F;logrotate.d</li>
+</ul>
+<h4 id="二、实践配置"><a href="#二、实践配置" class="headerlink" title="二、实践配置"></a>二、实践配置</h4><p>创建一个10M的塞满随机二进制数据的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch /var/log/log-file</span><br><span class="line">head -c 10M &lt; /dev/urandom &gt; /var/log/log-file </span><br></pre></td></tr></table></figure>
+
+<p>配置轮询配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/logrotate.d/log-file</span><br><span class="line"></span><br><span class="line">/var/log/log-file &#123;</span><br><span class="line">    monthly</span><br><span class="line">    rotate 5</span><br><span class="line">    compress</span><br><span class="line">    delaycompress</span><br><span class="line">    missingok</span><br><span class="line">    notifempty</span><br><span class="line">    create 644 root root</span><br><span class="line">    postrotate</span><br><span class="line">        /usr/bin/killall -HUP rsyslogd</span><br><span class="line">    endscript</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><code>monthly</code> 每月运行一次。其它可用值为’daily’，’weekly’或者’yearly’</li>
+<li><code>rotate 5</code> 切割后，保留最近的5次切割结果文件</li>
+<li><code>compress</code> 在轮循任务完成后，已轮循的归档将使用gzip进行压缩</li>
+<li><code>delaycompress</code> 总是与compress选项一起用，delaycompress选项指示logrotate不要将最近的归档压缩，压缩将在下一次轮循周期进行。这在你或任何软件仍然需要读取最新归档时很有用。</li>
+<li><code>missingok</code> 在日志轮循期间，任何错误将被忽略，例如“文件无法找到”之类的错误。</li>
+<li><code>notifempty</code> 如果日志文件为空，轮循不会进行。</li>
+<li><code>create 644 root root</code> 以指定的权限创建全新的日志文件，同时logrotate也会重命名原始日志文件</li>
+<li><code>postrotate</code>在所有其它指令完成后，postrotate和endscript里面指定的命令将被执行。在这种情况下，rsyslogd 进程将立即再次读取其配置并继续运行。</li>
+<li><code>size 100k</code> 日志大小超过 100k 时, 进行切割</li>
+<li><code>olddir /var/log/news/old</code> 切割后数据放入指定目录 &#x2F;var&#x2F;log&#x2F;news&#x2F;old</li>
+<li><code>nocompress</code> 转储文件不压缩</li>
+</ul>
+<p>配置完成后，载入&#x2F;etc&#x2F;lograte.d&#x2F;log-file</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 即使轮循条件没有满足，我们也可以通过使用&#x27;-f&#x27;选项来强制logrotate轮循日志文件，&#x27;-v&#x27;参数提供了详细的输出</span><br><span class="line">logrotate -vf /etc/logrotate.d/log-file </span><br><span class="line"></span><br><span class="line">ll /var/log/log-file*</span><br></pre></td></tr></table></figure>
+<p>结果:<br>-rw-r—– 1 root root   0 Nov 16 14:57 log-file<br>-rw-r–r– 1 root root   3 Nov 16 14:57 log-file.1</p>
+<p>log-file.1没有变成压缩文件是因为设置了delaycompress，后面再观察下个轮询周期到了log-file.1就会变成log-file.2.gz文件，log-file会变成log-file.1，log-file是最新的空文件，<code>zcat log-file.2.gz</code>查看压缩内容。</p>
+<p>logrotate自身的日志在<code>/var/lib/logrotate/</code>目录下</p>
+<h4 id="三、logrotate生产应用"><a href="#三、logrotate生产应用" class="headerlink" title="三、logrotate生产应用"></a>三、logrotate生产应用</h4><p>nginx日志轮询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/logrotate.d/nginx</span><br><span class="line"></span><br><span class="line">/usr/local/nginx/logs/*.log &#123;</span><br><span class="line">    daily</span><br><span class="line">    compress</span><br><span class="line">    delaycompress</span><br><span class="line">    rotate 365</span><br><span class="line">    missingok</span><br><span class="line">    notifempty</span><br><span class="line">    dateext</span><br><span class="line">    sharedscripts</span><br><span class="line">    postrotate</span><br><span class="line">      if [ -f /usr/local/nginx/logs/nginx.pid ]; then</span><br><span class="line">          kill -USR1 `cat /usr/local/nginx/logs/nginx.pid`</span><br><span class="line">      fi</span><br><span class="line">    endscript</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logrotate /etc/logrotate.d/nginx # 载入配置，因为没有达到daily的轮询条件，要到第二天才能看到轮询结果。可&#x27;logrotate -vf /etc/logrotate.d/nginx&#x27; 强制执行</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li><p><code>dateext</code> 表示以日期命名轮询文件后缀，如access.log变成access.log-20211116</p>
+</li>
+<li><p><code>sharedscripts</code> 意味着 postrotate 脚本将只运行一次（在旧日志被压缩之后），而不是为每个轮询的日志运行一次</p>
+</li>
+<li><p>USR1通常被用来告知应用程序重载配置文件；例如，向Apache HTTP服务器发送一个USR1信号将导致以下步骤的发生：停止接受新的连接，等待当前连接停止，重新载入配置文件，重新打开日志文件，重启服务器，从而实现相对平滑的不关机的更改。</p>
+</li>
+<li><p>kill -HUP pid 或者 killall -HUP pName，其中pid指进程id，pName为进程名称。<br>如果想要更改配置而不需停止并重新启动服务，可以使用上面两个命令。在对配置文件作必要的更改后，发出该命令以动态更新服务配置。根据约定，当你发送一个挂起信号(信号1或HUP)时，大多数服务器进程(所有常用的进程)都会进行复位操作并重新加载它们的配置文件。</p>
+</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/clsn/p/8428257.html">https://www.cnblogs.com/clsn/p/8428257.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/be5yond/article/details/122211394">https://blog.csdn.net/be5yond/article/details/122211394</a></p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2"><span class="toc-text">一、日志切割</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="toc-text">运行原理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E8%B7%B5%E9%85%8D%E7%BD%AE"><span class="toc-text">二、实践配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81logrotate%E7%94%9F%E4%BA%A7%E5%BA%94%E7%94%A8"><span class="toc-text">三、logrotate生产应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://chenqiaorui.github.io/2023/05/25/第38期：linux日志切割/">https://chenqiaorui.github.io/2023/05/25/第38期：linux日志切割/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2023/05/25/%E7%AC%AC37%E6%9C%9F%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          第37期：操作系统&amp;性能优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/25/%E7%AC%AC39%E6%9C%9F%EF%BC%9Astrace/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          第39期：strace
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/06/%E7%AC%AC45%E6%9C%9F%EF%BC%9A%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AD%96%E7%95%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/06/%E7%AC%AC44%E6%9C%9F%EF%BC%9A%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC43%E6%9C%9F%EF%BC%9Arabbitmq/">第43期：rabbitmq</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC42%E6%9C%9F%EF%BC%9Axargs/">第42期：xargs</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/26/%E7%AC%AC41%E6%9C%9F%EF%BC%9Ased/">第41期：sed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">43</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    <!-- 
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example1.com/">site-name1</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example2.com/">site-name2</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.example3.com/">site-name3</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+ -->
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 Ricky Chen.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>
