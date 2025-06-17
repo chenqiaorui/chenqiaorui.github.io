@@ -11,6 +11,51 @@ apt install iptables-persistent
 netfilter-persistent save # 保存到/etc/iptables/rules.v4
 netfilter-persistent reload
 ```
+常用：
+```
+*filter
+:INPUT DROP [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+-A OUTPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+COMMIT
+```
+
+解释：
+```
+#先允许所有,不然有可能会杯具
+iptables -P INPUT ACCEPT
+#清空所有默认规则
+iptables -F
+#清空所有自定义规则
+iptables -X
+#所有计数器归0
+iptables -Z
+#允许来自于lo接口的数据包(本地访问)
+iptables -A INPUT -i lo -j ACCEPT
+#开放dhcp客户端(可删除)
+iptables -A INPUT -p udp --sport 67 --dport 68 -j ACCEPT
+#开放995端口(POP3s)
+iptables -A INPUT -p tcp --dport 995 -j ACCEPT
+#开放80端口(HTTP)
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+#开放443端口(HTTPS)
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+#允许ping
+iptables -A INPUT -p icmp --icmp-type 8 -j ACCEPT
+#其他入站一律丢弃
+iptables -P INPUT DROP
+#所有出站一律绿灯
+iptables -P OUTPUT ACCEPT
+#所有转发一律丢弃
+iptables -P FORWARD DROP
+#允许接受本机请求之后的返回数据 RELATED,是为软件设置的
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+```
 
 #### 3. docker iptables
 ```

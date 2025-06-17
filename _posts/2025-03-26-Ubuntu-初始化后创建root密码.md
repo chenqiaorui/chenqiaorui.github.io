@@ -5,3 +5,6 @@
 这个结果是必然的，因为你的密码并不是 root 密码，这里需要先设置一下 root 密码：`sudo passwd root`
 
 切换：`su root`
+
+
+`su -` 切换到root用户。
