@@ -26,3 +26,12 @@ https://my.feishu.cn/wiki/XRINwkngHi9uxikfj3mcJFUfnDd
 #### 文档
 https://clawd.org.cn/start/clawd.html
 ```
+#### 大模型供应商
+```
+https://open.bigmodel.cn/
+```
+
+#### vpn
+```
+https://github.com/DiningFactory/panda-vpn-pro
+```
