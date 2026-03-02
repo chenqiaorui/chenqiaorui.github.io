@@ -26,6 +26,9 @@ https://my.feishu.cn/wiki/XRINwkngHi9uxikfj3mcJFUfnDd
 #### 文档
 https://clawd.org.cn/start/clawd.html
 https://my.feishu.cn/wiki/OhQ8wqntFihcI1kWVDlcNdpznFf
+
+### 接入飞书等im工具
+https://github.com/BytePioneer-AI/openclaw-china
 ```
 #### 大模型供应商
 ```
